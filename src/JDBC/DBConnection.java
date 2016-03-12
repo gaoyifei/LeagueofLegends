@@ -17,6 +17,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -99,6 +100,43 @@ public class DBConnection {
 
     }
     
+    public ArrayList<Player> getAllPlayer() throws SQLException{
+        String query = "SELECT playerID, nikeName, level, rank FROM Player;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        ArrayList<Player> playerList = new ArrayList<Player>();
+        while(rs.next());
+        {
+            Player p = new Player();
+            p.level = rs.getInt("level");
+            p.nickName = rs.getString("nikeName");
+            p.playerID = rs.getInt("playerID");
+            p.rank = rs.getString("rank");
+            playerList.add(p);
+            
+        }
+        
+        
+        return playerList;
+        
+        
+        
+    }
+    
+    public Player getPlayer(int playerID) throws SQLException {
+        String query = "SELECT playerID, nikeName, level, rank FROM Player WHERE PlayerID = " + playerID + ";";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        Player player = new Player();
+        player.level = rs.getInt("level");
+        player.nickName = rs.getString("nikeName");
+        player.playerID = rs.getInt("playerID");
+        player.rank = rs.getString("rank");
+        
+        return player;
+        
+    }
+
     
 
     }
