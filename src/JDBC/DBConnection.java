@@ -5,6 +5,10 @@
  */
 package JDBC;
 
+import model.Equipment;
+import model.Hero;
+import model.Map;
+import model.Player;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -94,6 +98,8 @@ public class DBConnection {
 
 
     }
+    
+    
 
     }
 
