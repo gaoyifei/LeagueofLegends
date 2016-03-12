@@ -18,14 +18,17 @@ public class Map {
     public int mapID;
     public String mapName;
     public int maxPlayer;
-    public int size;
+    public int mapSize;
     
-    public Map(int mapID, String mapName, int maxPlayer, int size) throws MalformedURLException, IOException{
+    public Map(){
+        
+    }
+    public Map(int mapID, String mapName, int maxPlayer, int mapSize) throws MalformedURLException, IOException{
       //  this.mapID=mapID;
         this.mapID = mapID;
         this.mapName = mapName;
         this.maxPlayer = maxPlayer;
-        this.size = size;
+        this.mapSize = mapSize;
         
     }
     

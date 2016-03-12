@@ -10,5 +10,15 @@ package model;
  * @author GaoYifei
  */
 public class Hero {
+    public int heroID;
+    public String heroName;
+    
+    public Hero(){
+        
+    }
+    public Hero(int heroID, String heroName){
+        this.heroID = heroID;
+        this.heroName = heroName;
+    }
     
 }

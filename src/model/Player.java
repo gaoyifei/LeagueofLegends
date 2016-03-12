@@ -15,19 +15,21 @@ import java.net.MalformedURLException;
 public class Player {
     public int playerID;
     public String nickName;
-    public String mmr;
     public int level;
     public String rank;
     
-     public Player(int playerID, String nickName, String mmr, int level, String rank) throws MalformedURLException, IOException{
-      
-         this.playerID = playerID;
-         this.nickName = nickName;
-         this.mmr = mmr;
-         this.level = level;
-         this.rank = rank;
-        
+    public Player(){
         
     }
+    
+    public Player(int playerID, String nickName, String mmr, int level, String rank) throws MalformedURLException, IOException{
+
+        this.playerID = playerID;
+        this.nickName = nickName;
+        this.level = level;
+        this.rank = rank;
+
+
+   }
     
 }
