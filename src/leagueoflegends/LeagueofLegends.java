@@ -7,6 +7,7 @@ package leagueoflegends;
 import JDBC.DBConnection;
 import java.io.IOException;
 import java.sql.SQLException;
+import model.Player;
 
 
 /**
@@ -16,8 +17,11 @@ import java.sql.SQLException;
 public class LeagueofLegends {
     public DBConnection db = DBConnection.getInstance();
     
-    public LeagueofLegends() {
+    public LeagueofLegends() throws SQLException {
         this.init();
+        Player p = new Player();
+        p = db.getPlayer(1);
+        int test = db.getPlayerWins(1);
     }
     
     public void init(){
@@ -26,9 +30,10 @@ public class LeagueofLegends {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
        System.out.println("Application start");
        LeagueofLegends game = new LeagueofLegends();
+      
     }
     
 }

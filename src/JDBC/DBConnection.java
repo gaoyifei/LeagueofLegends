@@ -127,13 +127,160 @@ public class DBConnection {
         String query = "SELECT playerID, nikeName, level, rank FROM Player WHERE PlayerID = " + playerID + ";";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        rs.next();
         Player player = new Player();
         player.level = rs.getInt("level");
         player.nickName = rs.getString("nikeName");
         player.playerID = rs.getInt("playerID");
         player.rank = rs.getString("rank");
         
+        
         return player;
+        
+    }
+    
+    public int getPlayerWins(int playerID) throws SQLException {
+        String query = "SELECT sum(MatchHistory.gameResult) as sumwins "
+                    + "FROM MatchHistory "
+                    + "WHERE MatchHistory.playerID = " + playerID + " ;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int sumwins = rs.getInt("sumwins");
+        
+        return sumwins;
+        
+    }
+    
+    public int getPlayerLose(int playerID) throws SQLException {
+        String query = "SELECT count(History.gameResult) as battletimes, sum(History.gameResult) as sumwins "
+                    + "FROM History "
+                    + "WHERE History.playerID = " + playerID + " ;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        int battletimes = rs.getInt("battletimes");
+        int sumwins = rs.getInt("sumwins");
+        int lose = battletimes - sumwins;
+        
+        return lose;
+        
+    }
+    
+    public String getMostCommonMap(int playerID) throws SQLException {
+        String query = "SELECT temp.mapID "
+                + "FROM(SELECT History.mapID,count(History.mapID) as mapcount "
+                    + "FROM History "
+                    + "WHERE History.playerID = " + playerID
+                    + " GROUP BY History.mapID) as temp "
+                + "ORDER BY temp.mapcount desc limit 1;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        int mapID = rs.getInt("mapID");
+        
+        String query2 = "SELECT mapName FROM Map WHERE mapID = " + mapID + ";";
+        Statement stmt2 = conn.createStatement();
+        ResultSet rs2 = stmt2.executeQuery(query2);
+        String mapName = rs2.getString("mapName");
+        
+        return mapName;
+        
+    }
+    
+    public String getFavorEquip(int playerID) throws SQLException {
+       String query = "SELECT temp.equipID "
+                + "FROM(SELECT History.equipID,count(History.equipID) as equipcount"
+                    + "FROM History "
+                    + "WHERE History.playerID = " + playerID
+                    + " GROUP BY History.equipID) as temp "
+                + "ORDER BY temp.equipcount desc limit 1;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        int equipID = rs.getInt("equipID");
+        
+        String query2 = "SELECT equipName FROM Equipment WHERE equipID = " + equipID + ";";
+        Statement stmt2 = conn.createStatement();
+        ResultSet rs2 = stmt2.executeQuery(query2);
+        String equipName = rs2.getString("equipName");
+        
+        return equipName;
+        
+    }
+    
+    public String getFavorRoles(int playerID) throws SQLException {
+        String query = "SELECT temp.roles "
+                + "FROM(SELECT History.roles,count(History.roles) as rolescount "
+                    + "FROM History "
+                    + "WHERE History.playerID = " + playerID
+                    + " GROUP BY History.roles) as temp "
+                + "ORDER BY temp.rolescount desc limit 1;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        String favorroles = rs.getString("roles");
+        
+        return favorroles;
+        
+    }
+    
+    public int getTotalTime(int playerID) throws SQLException {
+        String query = "SELECT count(History.playingTime) as totaltime "
+                    + "FROM History "
+                    + "WHERE History.playerID = " + playerID + " ;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        int totaltime = rs.getInt("totaltime");
+        
+        return totaltime;
+        
+    }
+    
+    public Hero getBestHero(int playerID) throws SQLException {
+        String query = "SELECT temp.heroID "
+                + "FROM(SELECT History.heroID,count(History.heroID) as battletimes,sum(History.gameResult) as sumwins "
+                    + "FROM History "
+                    + "WHERE History.playerID = " + playerID
+                    + " GROUP BY History.heroID) as temp "
+                + "ORDER BY (temp.sumwins/temp.battletimes) desc limit 1;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        Hero hero = new Hero();
+        hero.heroID = rs.getInt("heroID");
+        
+        String query2 = "SELECT heroName FROM Hero WHERE heroID = " + hero.heroID + ";";
+        Statement stmt2 = conn.createStatement();
+        ResultSet rs2 = stmt2.executeQuery(query2);
+        hero.heroName = rs2.getString("heroName");
+        
+        return hero;
+        
+    }
+
+    public String getFavorEquipOfBestHero(int playerID) throws SQLException {
+        String query = "SELECT temp.heroID "
+                + "FROM(SELECT History.heroID,count(History.heroID) as battletimes,sum(History.gameResult) as sumwins "
+                    + "FROM History "
+                    + "WHERE History.playerID = " + playerID
+                    + " GROUP BY History.heroID) as temp "
+                + "ORDER BY (temp.sumwins/temp.battletimes) desc limit 1;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        int heroID = rs.getInt("heroID");
+        
+        String query2 = "SELECT temp.equipID "
+                + "FROM(SELECT History.equipID,count(History.equipID) as equipcount"
+                    + "FROM History "
+                    + "WHERE History.playerID = " + playerID + " AND History.heroID = " + heroID
+                    + " GROUP BY History.equipID) as temp "
+                + "ORDER BY temp.equipcount desc limit 1;";
+        Statement stmt2 = conn.createStatement();
+        ResultSet rs2 = stmt2.executeQuery(query2);
+        int equipID = rs2.getInt("equipID");
+        
+        String query3 = "SELECT equipName FROM Equipment WHERE equipID = " + equipID + ";";
+        Statement stmt3 = conn.createStatement();
+        ResultSet rs3 = stmt3.executeQuery(query3);
+        String equipName = rs3.getString("equipName");
+        
+        return equipName;
         
     }
 
