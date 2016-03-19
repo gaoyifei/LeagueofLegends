@@ -19,6 +19,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import model.History;
+
 /**
  *
  * @author GaoYifei
@@ -134,15 +136,14 @@ public class DBConnection {
         player.playerID = rs.getInt("playerID");
         player.rank = rs.getString("rank");
         
-        
         return player;
         
     }
-    
+
     public int getPlayerWins(int playerID) throws SQLException {
-        String query = "SELECT sum(MatchHistory.gameResult) as sumwins "
-                    + "FROM MatchHistory "
-                    + "WHERE MatchHistory.playerID = " + playerID + " ;";
+        String query = "SELECT sum(History.gameResult) as sumwins "
+                    + "FROM History "
+                    + "WHERE History.playerID = " + playerID + " ;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
@@ -158,6 +159,7 @@ public class DBConnection {
                     + "WHERE History.playerID = " + playerID + " ;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        rs.next();
         int battletimes = rs.getInt("battletimes");
         int sumwins = rs.getInt("sumwins");
         int lose = battletimes - sumwins;
@@ -175,11 +177,13 @@ public class DBConnection {
                 + "ORDER BY temp.mapcount desc limit 1;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        rs.next();
         int mapID = rs.getInt("mapID");
         
         String query2 = "SELECT mapName FROM Map WHERE mapID = " + mapID + ";";
         Statement stmt2 = conn.createStatement();
         ResultSet rs2 = stmt2.executeQuery(query2);
+        rs2.next();
         String mapName = rs2.getString("mapName");
         
         return mapName;
@@ -195,11 +199,13 @@ public class DBConnection {
                 + "ORDER BY temp.equipcount desc limit 1;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        rs.next();
         int equipID = rs.getInt("equipID");
         
         String query2 = "SELECT equipName FROM Equipment WHERE equipID = " + equipID + ";";
         Statement stmt2 = conn.createStatement();
         ResultSet rs2 = stmt2.executeQuery(query2);
+        rs2.next();
         String equipName = rs2.getString("equipName");
         
         return equipName;
@@ -215,6 +221,7 @@ public class DBConnection {
                 + "ORDER BY temp.rolescount desc limit 1;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        rs.next();
         String favorroles = rs.getString("roles");
         
         return favorroles;
@@ -227,6 +234,7 @@ public class DBConnection {
                     + "WHERE History.playerID = " + playerID + " ;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        rs.next();
         int totaltime = rs.getInt("totaltime");
         
         return totaltime;
@@ -243,11 +251,13 @@ public class DBConnection {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         Hero hero = new Hero();
+        rs.next();
         hero.heroID = rs.getInt("heroID");
         
         String query2 = "SELECT heroName FROM Hero WHERE heroID = " + hero.heroID + ";";
         Statement stmt2 = conn.createStatement();
         ResultSet rs2 = stmt2.executeQuery(query2);
+        rs2.next();
         hero.heroName = rs2.getString("heroName");
         
         return hero;
@@ -263,6 +273,7 @@ public class DBConnection {
                 + "ORDER BY (temp.sumwins/temp.battletimes) desc limit 1;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
+        rs.next();
         int heroID = rs.getInt("heroID");
         
         String query2 = "SELECT temp.equipID "
@@ -273,19 +284,19 @@ public class DBConnection {
                 + "ORDER BY temp.equipcount desc limit 1;";
         Statement stmt2 = conn.createStatement();
         ResultSet rs2 = stmt2.executeQuery(query2);
+        rs2.next();
         int equipID = rs2.getInt("equipID");
         
         String query3 = "SELECT equipName FROM Equipment WHERE equipID = " + equipID + ";";
         Statement stmt3 = conn.createStatement();
         ResultSet rs3 = stmt3.executeQuery(query3);
+        rs3.next();
         String equipName = rs3.getString("equipName");
         
         return equipName;
         
     }
-
     
-
     }
 
 
