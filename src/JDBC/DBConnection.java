@@ -53,6 +53,8 @@ public class DBConnection {
             String propertiesPath=jarPath.getParentFile().getAbsolutePath();
 
             BufferedReader r = null;
+            
+            
 
             if(System.getProperty("os.name").startsWith("Windows")) {
                 r = new BufferedReader(new FileReader(propertiesPath + "\\user.config"));
