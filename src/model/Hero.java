@@ -12,13 +12,15 @@ package model;
 public class Hero {
     public int heroID;
     public String heroName;
+    public float heroWinrate;
     
     public Hero(){
         
     }
-    public Hero(int heroID, String heroName){
+    public Hero(int heroID, String heroName, float heroWinrate){
         this.heroID = heroID;
         this.heroName = heroName;
+        this.heroWinrate = heroWinrate;
     }
     
 }
