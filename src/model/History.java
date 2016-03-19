@@ -24,9 +24,6 @@ public class History {
     public String roles;
     public int playingTime;
     
-    public int heroID;
-    public Hero hero;
-    
     public History(){
         
     }
