@@ -56,6 +56,7 @@ public class PlayerLogic {
         result.add(favorEquip);
         result.add(favorRole);
         result.add(bestHero);
+        
         return result;
         
         
