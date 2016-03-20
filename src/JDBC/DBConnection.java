@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -25,9 +26,9 @@ import java.util.ArrayList;
  */
 public class DBConnection {
     String JDBC_DRIVER= "com.mysql.jdbc.Driver";  
-    String DB_URL = "jdbc:mysql://localhost:3306/project1";
+    String DB_URL = "jdbc:mysql://localhost/CS542";
     String USER = "root";
-    String PASS = "root";
+    String PASS = "";
     Connection conn = null;
     
     private int maxPlayerID = 0;
@@ -304,4 +305,4 @@ public class DBConnection {
     }
 
 
- 
+
