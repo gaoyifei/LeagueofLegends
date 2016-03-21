@@ -25,13 +25,13 @@ public class LeagueofLegends {
         p = db.getPlayer(1);
         
         //testing
-        int testwin = db.getPlayerWins(3);
-        int testlose = db.getPlayerLose(3);
-        String testmap = db.getMostCommonMap(3);
-        String testfequip = db.getFavorEquip(3);
-        String testfroles = db.getFavorRoles(3);
-        int testtotaltime = db.getTotalTime(3);
-        Hero testhero = db.getBestHero(3);
+        int testwin = db.getPlayerWins(1);
+        int testlose = db.getPlayerLose(1);
+        String testmap = db.getMostCommonMap(1);
+        String testfequip = db.getFavorEquip(1);
+        String testfroles = db.getFavorRoles(1);
+        int testtotaltime = db.getTotalTime(1);
+        Hero testhero = db.getBestHero(1);
         String tstbestequip = db.getFavorEquipOfBestHero(1);
     }
     

@@ -105,13 +105,14 @@ public class DBConnection {
         String query = "SELECT playerID, nikeName, level, rank FROM Player;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
-        ArrayList<Player> playerList = new ArrayList<Player>();
-        while(rs.next());
+        
+        ArrayList<Player> playerList = new ArrayList();
+        while(rs.next())
         {
             Player p = new Player();
-            p.level = rs.getInt("level");
-            p.nickName = rs.getString("nikeName");
             p.playerID = rs.getInt("playerID");
+            p.nickName = rs.getString("nikeName");
+            p.level = rs.getInt("level");
             p.rank = rs.getString("rank");
             playerList.add(p);
             
@@ -172,7 +173,7 @@ public class DBConnection {
         String query = "SELECT temp.mapID "
                 + "FROM(SELECT GameHistory.mapID,count(GameHistory.mapID) as mapcount "
                     + "FROM GameHistory, MatchHistory "
-                    + "WHERE GameHistory.matchID = MatchHistory.matchID and MatchHistory.playerID = " + playerID
+                    + "WHERE GameHistory.gameID = MatchHistory.gameID and MatchHistory.playerID = " + playerID
                     + " GROUP BY GameHistory.mapID) as temp "
                 + "ORDER BY temp.mapcount desc limit 1;";
         Statement stmt = conn.createStatement();
@@ -231,7 +232,7 @@ public class DBConnection {
     public int getTotalTime(int playerID) throws SQLException {
         String query = "SELECT sum(GameHistory.playingTime) as totaltime "
                     + "FROM GameHistory, MatchHistory "
-                    + "WHERE GameHistory.matchID = MatchHistory.matchID and MatchHistory.playerID = " + playerID + " ;";
+                    + "WHERE GameHistory.gameID = MatchHistory.gameID and MatchHistory.playerID = " + playerID + " ;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         rs.next();

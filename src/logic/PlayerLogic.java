@@ -13,6 +13,8 @@ import JDBC.DBConnection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,10 +22,26 @@ import java.util.HashMap;
  */
 public class PlayerLogic {
     public DBConnection db = DBConnection.getInstance();
+    static private PlayerLogic instance = null;
     
-    public ArrayList<Player> allPlayers() throws SQLException{
-        return db.getAllPlayer();
+    
+    public static PlayerLogic getInstance() {
+        // this is not thread-safe but it's ok since we don't have
+        // multiple threads accessing the object
+        if(instance == null) instance = new PlayerLogic();
+        return instance;
+    }
+    
+    public ArrayList<Player> allPlayers(){
+        ArrayList<Player> playerList = new ArrayList();
+        try {
+            
+           playerList =  db.getAllPlayer();
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerLogic.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
+        return playerList;
     }
     public void addPlayer(Player player){
         

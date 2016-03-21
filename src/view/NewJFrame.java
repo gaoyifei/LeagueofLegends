@@ -4,14 +4,20 @@
  * and open the template in the editor.
  */
 package view;
+import logic.PlayerLogic;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.imageio.*;
 import view.ImagePanel;
 import java.lang.Object;
 import java.io.*;
 import java.awt.image.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import model.Player;
 
 /**
  *
@@ -26,7 +32,7 @@ public class NewJFrame extends javax.swing.JFrame {
 * @param h - desired height
 * @return - the new resized image
 */
-private BufferedImage getScaledImage(BufferedImage src, int w, int h){
+    private BufferedImage getScaledImage(BufferedImage src, int w, int h){
     int finalw = w;
     int finalh = h;
     double factor = 1.0d;
@@ -48,6 +54,7 @@ private BufferedImage getScaledImage(BufferedImage src, int w, int h){
     /**
      * Creates new form NewJFrame
      */
+    public PlayerLogic playerLogic = PlayerLogic.getInstance();
     public NewJFrame() {
         BufferedImage myImage = new BufferedImage(5, 5, BufferedImage.TYPE_INT_ARGB);;
         try{
@@ -56,7 +63,9 @@ private BufferedImage getScaledImage(BufferedImage src, int w, int h){
         myImage = getScaledImage(myImage,800,500);
         setContentPane(new ImagePanel(myImage));
         setTitle("League of Legends Analysis Interface");
-    
+        
+       
+        
         initComponents();
   //     setSize(1400,800);
     //    Graphics2D g2 = myImage.createGraphics();
@@ -72,25 +81,31 @@ private BufferedImage getScaledImage(BufferedImage src, int w, int h){
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initComponents(){
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new JPanel();
+        jScrollPane2 = new JScrollPane();
+        jList2 = new JList<>();
+        jScrollPane3 = new JScrollPane();
+        jTable2 = new JTable();
+        jScrollPane1 = new JScrollPane();
+        jTable1 = new JTable();
+        jButton2 = new JButton();
+        jButton1 = new JButton();
+        jLabel1 = new JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
+        jList2.setModel(new AbstractListModel<String>() {
             String[] strings = { "Player1", "Player2", "Player3", "Player4", "Player5", "Player6", "Player7", "Player8", "Player9", "Player10", "Player11", "Player12", "Player13", "Player14", "Player15", "Player16", "Player17", "Player18", "Player19", "Player20" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+            ArrayList<Player> playerList = playerLogic.allPlayers();
+            
+            public int getSize(){ 
+                 return playerList.size(); 
+            }
+            public String getElementAt(int i) {
+                return playerList.get(i).nickName; 
+            }
         });
         jScrollPane2.setViewportView(jList2);
 
@@ -127,15 +142,18 @@ private BufferedImage getScaledImage(BufferedImage src, int w, int h){
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("Add Player");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
+
+           
         });
 
         jButton1.setText("Look Up");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        jButton1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
