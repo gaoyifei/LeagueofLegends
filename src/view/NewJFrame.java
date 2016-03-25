@@ -17,6 +17,11 @@ import java.io.*;
 import java.awt.image.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import model.Player;
 
 /**
@@ -55,13 +60,16 @@ public class NewJFrame extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public PlayerLogic playerLogic = PlayerLogic.getInstance();
+    ImagePanel imagePanel;
     public NewJFrame() {
         BufferedImage myImage = new BufferedImage(5, 5, BufferedImage.TYPE_INT_ARGB);;
         try{
-           myImage = ImageIO.read(new File("yasuo.jpg"));} 
+           myImage = ImageIO.read(new File("src/pic/yasuo.jpg"));} 
         catch (IOException e) {}
         myImage = getScaledImage(myImage,800,500);
-        setContentPane(new ImagePanel(myImage));
+        imagePanel = new ImagePanel(myImage);
+        
+        setContentPane(imagePanel);
         setTitle("League of Legends Analysis Interface");
         
        
@@ -85,19 +93,21 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jPanel1 = new JPanel();
         jScrollPane2 = new JScrollPane();
-        jList2 = new JList<>();
+        playerList = new JList<>();
         jScrollPane3 = new JScrollPane();
-        jTable2 = new JTable();
+        playerTable = new JTable();
         jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
         jButton2 = new JButton();
         jButton1 = new JButton();
         jLabel1 = new JLabel();
+        ListSelectionModel listSelectionModel = playerList.getSelectionModel();
+        DefaultTableModel playerInfoModel =(DefaultTableModel) playerTable.getModel();
+        DefaultTableModel detailInfoModel =(DefaultTableModel) jTable1.getModel();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        jList2.setModel(new AbstractListModel<String>() {
-            String[] strings = { "Player1", "Player2", "Player3", "Player4", "Player5", "Player6", "Player7", "Player8", "Player9", "Player10", "Player11", "Player12", "Player13", "Player14", "Player15", "Player16", "Player17", "Player18", "Player19", "Player20" };
+        playerList.setModel(new AbstractListModel<String>() {
             ArrayList<Player> playerList = playerLogic.allPlayers();
             
             public int getSize(){ 
@@ -107,23 +117,26 @@ public class NewJFrame extends javax.swing.JFrame {
                 return playerList.get(i).nickName; 
             }
         });
-        jScrollPane2.setViewportView(jList2);
+         
+       
+        jScrollPane2.setViewportView(playerList);
+        
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        playerTable.setModel(new DefaultTableModel(
             new Object [][] {
-                {"PlayerID", "Player1"},
-                {"PlayerName", "PlayName"},
-                {"PlayerRank", "Platinum V"},
-                {"PlayerLevel", "30"},
+                {"1", "Tom","3","III"},
+                {"2", "Jack"},
+                {"3", "Lucy"},
+                {"4", "Jimmy"},
                 {null, null}
             },
             new String [] {
-                "Info", "Player"
+                "PlayerID", "PlayerName","PlayerRank","PlayerLevel"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(playerTable);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new DefaultTableModel(
             new Object [][] {
                 {"Total # of Matches", "234"},
                 {"Most often played Map", "Summoner Rift"},
@@ -136,11 +149,16 @@ public class NewJFrame extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Total # of Matches", "Most often played Map","most often used item "
+                 ,"Total Game Time", "Top three champ used","Archenemy Champ","Symbol Champ & Item",
+                 "Most Used Position"
             }
         ));
+        
         jScrollPane1.setViewportView(jTable1);
 
+       
+        
         jButton2.setText("Add Player");
         jButton2.addActionListener(new ActionListener() {
             @Override
@@ -157,7 +175,39 @@ public class NewJFrame extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        
+        // Listener 
+         ListSelectionListener listSelectionListener = new ListSelectionListener() {
+            
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting()){
+                System.out.print(playerList.getSelectedValue());
+                int index = playerList.getSelectedIndex();
+                    try {
+                        loadPlayerInfo(index + 1); // 临时用index + 1替代playerID
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                
+            }
+        };
+        listSelectionModel.addListSelectionListener(listSelectionListener);
 
+           
+                 
+        
+        
+        
+        
+        
+        
+        
+
+
+        // Layout 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -172,13 +222,13 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(48, 48, 48))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(149, 149, 149)
                                 .addComponent(jLabel1)))
@@ -233,7 +283,12 @@ public class NewJFrame extends javax.swing.JFrame {
         //look up
         
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    private void loadPlayerInfo(int playerID) throws SQLException{
+        
+        ArrayList result = playerLogic.playerInfo(playerID);
+        DefaultTableModel playerModel =(DefaultTableModel) playerTable.getModel();
+        playerModel.addRow(new Object[]{result.get(0), result.get(1),result.get(2),result.get(3)});
+    }
     /**
      * @param args the command line arguments
      */
@@ -273,12 +328,14 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> playerList;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable playerTable;
+    ListSelectionModel listSelectionModel;
     // End of variables declaration//GEN-END:variables
 }
+

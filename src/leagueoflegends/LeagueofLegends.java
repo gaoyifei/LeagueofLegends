@@ -23,7 +23,7 @@ public class LeagueofLegends {
         this.init();
         Player p = new Player();
         p = db.getPlayer(1);
-        
+        System.out.println("p level is"+p.level);
         //testing
         int testwin = db.getPlayerWins(1);
         int testlose = db.getPlayerLose(1);
