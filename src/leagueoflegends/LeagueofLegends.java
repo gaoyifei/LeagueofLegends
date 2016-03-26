@@ -38,19 +38,16 @@ public class LeagueofLegends {
         
         //testing Developer-oriented SQL
         ArrayList<Hero> h = new ArrayList();
-        h = db.getOPHero(2,1);
+        h = db.getOPHero(1);
         
         ArrayList<Equipment> e = new ArrayList();
-        e = db.getOPEquip(8,2);
+        e = db.getOPEquip(1);
         
         ArrayList<Map> m = new ArrayList();
         m = db.getMapInfor();
         
         ArrayList<Player> pr = new ArrayList();
         pr = db.getrankDistribute();
-        
-        ArrayList<Player> pl = new ArrayList();
-        pl = db.getlevelDistribute();
         
         //testing Insert and Delete
         int testin = db.insertPlayer(15, "bronze", "cao");

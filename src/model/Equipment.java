@@ -18,18 +18,19 @@ public class Equipment {
     public String types;
     public int price;
     public float equipWinrate;
+    public int equiptimes;
     
     public Equipment(){
         
     }
     
-    public Equipment(int equipID, String equipName, String types, int price,float equipWinrate) throws MalformedURLException, IOException{
+    public Equipment(int equipID, String equipName, String types, int price, float equipWinrate, int equiptimes) throws MalformedURLException, IOException{
        this.equipID = equipID;
        this.equipName = equipName;
        this.types = types;
        this.price = price;
        this.equipWinrate = equipWinrate;
-        
+       this.equiptimes = equiptimes;
         
     }
 }

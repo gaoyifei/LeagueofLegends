@@ -302,14 +302,16 @@ public class DBConnection {
     }
 
     //Developer-oriented SQL
-    public ArrayList<Hero> getOPHero(int listsize,int battletimes) throws SQLException{
-        String query = "SELECT temp.heroName, temp.heroID, (temp.sumwins/temp.battletimes) as winrate "
+    public ArrayList<Hero> getOPHero(int option) throws SQLException{
+        String order;
+        if(option == 1) order = "winrate";
+        else order = "times";
+        String query = "SELECT temp.heroName, temp.heroID, temp.battletimes as times, (100*temp.sumwins/temp.battletimes) as winrate "
                 + "FROM(SELECT hero.heroName,MatchHistory.heroID,count(MatchHistory.heroID) as battletimes,sum(MatchHistory.gameResult) as sumwins "
                     + "FROM hero,MatchHistory "
                     + "where hero.heroID = matchhistory.heroID "
                     + "GROUP BY MatchHistory.heroID) as temp "
-                + "where temp.battletimes >= " + battletimes
-                + " ORDER BY winrate desc limit " + listsize + ";";
+                + " ORDER BY " + order + " desc;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         ArrayList<Hero> heroList = new ArrayList();
@@ -317,6 +319,7 @@ public class DBConnection {
         {
             Hero h = new Hero();
             h.heroID = rs.getInt("heroID");
+            h.herotimes = rs.getInt("times");
             h.heroName = rs.getString("heroName");
             h.heroWinrate = rs.getFloat("winrate");
             heroList.add(h);
@@ -327,14 +330,16 @@ public class DBConnection {
         
     }
     
-    public ArrayList<Equipment> getOPEquip(int listsize,int battletimes) throws SQLException{
-        String query = "SELECT temp.equipID, temp.equipName, temp.price, temp.types, (temp.sumwins/temp.battletimes) as winrate "
+    public ArrayList<Equipment> getOPEquip(int option) throws SQLException{
+        String order;
+        if(option == 1) order = "winrate";
+        else order = "times";
+        String query = "SELECT temp.equipID, temp.equipName, temp.price, temp.types, temp.battletimes as times, (100*temp.sumwins/temp.battletimes) as winrate "
                 + "FROM(SELECT equipment.equipName,equipment.price,equipment.types,MatchHistory.equipID,count(MatchHistory.equipID) as battletimes,sum(MatchHistory.gameResult) as sumwins "
                     + "FROM equipment,MatchHistory "
                     + "where equipment.equipID = matchhistory.equipID "
                     + "GROUP BY MatchHistory.equipID) as temp "
-                + "where temp.battletimes >= " + battletimes
-                + " ORDER BY winrate desc limit " + listsize + ";";
+                + " ORDER BY " + order + " desc;";
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         ArrayList<Equipment> equipList = new ArrayList();
@@ -344,6 +349,7 @@ public class DBConnection {
             e.equipID = rs.getInt("equipID");
             e.equipName = rs.getString("equipName");
             e.equipWinrate = rs.getFloat("winrate");
+            e.equiptimes = rs.getInt("times");
             e.price = rs.getInt("price");
             e.types = rs.getString("types");
             equipList.add(e);
@@ -399,27 +405,27 @@ public class DBConnection {
         
     }
     
-    public ArrayList<Player> getlevelDistribute() throws SQLException{
-        String query = "SELECT level, count(level) as pnumber, (100*count(level)/sump.totalp) as percentage "
-                    + "from (SELECT count(playerId) as totalp from player) as sump, player "
-                    + "group by level "
-                    + "ORDER BY pnumber desc;";
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery(query);
-        ArrayList<Player> playerList = new ArrayList();
-        while(rs.next())
-        {
-            Player p = new Player();
-            p.level = rs.getInt("level");
-            p.pnumber = rs.getInt("pnumber");
-            p.percentage = rs.getFloat("percentage");
-            playerList.add(p);
-            
-        }
-        
-        return playerList;      
-        
-    }
+//    public ArrayList<Player> getlevelDistribute() throws SQLException{
+//        String query = "SELECT level, count(level) as pnumber, (100*count(level)/sump.totalp) as percentage "
+//                    + "from (SELECT count(playerId) as totalp from player) as sump, player "
+//                    + "group by level "
+//                    + "ORDER BY pnumber desc;";
+//        Statement stmt = conn.createStatement();
+//        ResultSet rs = stmt.executeQuery(query);
+//        ArrayList<Player> playerList = new ArrayList();
+//        while(rs.next())
+//        {
+//            Player p = new Player();
+//            p.level = rs.getInt("level");
+//            p.pnumber = rs.getInt("pnumber");
+//            p.percentage = rs.getFloat("percentage");
+//            playerList.add(p);
+//            
+//        }
+//        
+//        return playerList;      
+//        
+//    }
     
     
     //Insert and Delete

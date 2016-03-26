@@ -13,14 +13,16 @@ public class Hero {
     public int heroID;
     public String heroName;
     public float heroWinrate;
+    public int herotimes;
     
     public Hero(){
         
     }
-    public Hero(int heroID, String heroName, float heroWinrate){
+    public Hero(int heroID, String heroName, float heroWinrate, int herotimes){
         this.heroID = heroID;
         this.heroName = heroName;
         this.heroWinrate = heroWinrate;
+        this.herotimes = herotimes;
     }
     
 }
