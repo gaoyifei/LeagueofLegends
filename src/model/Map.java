@@ -17,18 +17,20 @@ import javax.imageio.ImageIO;
 public class Map {
     public int mapID;
     public String mapName;
-    public int maxPlayer;
-    public int mapSize;
+    //public int maxPlayer;
+    public String mapSize;
+    public int totalTime;
     
     public Map(){
         
     }
-    public Map(int mapID, String mapName, int maxPlayer, int mapSize) throws MalformedURLException, IOException{
+    public Map(int mapID, String mapName, String mapSize,int totalTime) throws MalformedURLException, IOException{
       //  this.mapID=mapID;
         this.mapID = mapID;
         this.mapName = mapName;
-        this.maxPlayer = maxPlayer;
+        //this.maxPlayer = maxPlayer;
         this.mapSize = mapSize;
+        this.totalTime = totalTime;
         
     }
     
