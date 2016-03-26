@@ -43,8 +43,44 @@ public class PlayerLogic {
         
         return playerList;
     }
-    public void addPlayer(Player player){
+    public void addPlayer(int level, String nickName, String rank) throws SQLException{
+        db.insertPlayer( level,  rank,  nickName);
+    }
+    public void deletePlayer(int playerID) throws SQLException{
+        db.deletePlayer(playerID);
+    }
+    public ArrayList lookUp(int playerID) throws SQLException{
+        int pID = playerID;
+        Player player = db.getPlayer(pID);
+        int wins = db.getPlayerWins(pID);
+        int loses = db.getPlayerLose(pID);
+        int totalTime = db.getTotalTime(pID);
+        String commentMap = db.getMostCommonMap(pID);
+        String favorEquip = db.getFavorEquip(pID);
+        Hero bestHero = new Hero();
+        bestHero = db.getBestHero(pID);
+        String favorRole = db.getFavorRoles(pID);
+//        HashMap test = new HashMap();
+//        test.put("pID", pID);
+//        test.put("wins", wins);
+//        test.put("loses", loses);
+//        test.put("totalTime", totalTime);
+//        test.put("commentMap", commentMap);
+//        test.put("favorEquip", favorEquip);
+//        test.put("favorRule", favorEquip);
+//        test.put("bestHero", bestHero);
         
+        ArrayList result = new ArrayList();
+        result.add(Integer.toString(wins));
+        result.add(Integer.toString(loses));
+        result.add(commentMap);
+        result.add(favorEquip);
+        result.add(Integer.toString(totalTime));
+//        result.add(commentMap);
+        result.add(bestHero.heroName);
+        result.add(favorRole);
+
+        return result;
     }
     public ArrayList playerInfo(int playerID) throws SQLException{
         int pID = playerID;

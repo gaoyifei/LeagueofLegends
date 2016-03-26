@@ -63,9 +63,9 @@ public class PlayersPanel extends javax.swing.JPanel {
         ListSelectionModel listSelectionModel = playerList.getSelectionModel();
 
         playerList.setModel(new javax.swing.AbstractListModel<String>() {
-            ArrayList<Player> playerList = playerLogic.allPlayers();
+             ArrayList<Player> playerList = playerLogic.allPlayers();
             public int getSize() { return playerList.size(); }
-            public String getElementAt(int i) { return playerList.get(i).nickName; }
+            public String getElementAt(int i) { return Integer.toString(playerList.get(i).playerID);}
         });
                 // Listener 
         ListSelectionListener listSelectionListener = new ListSelectionListener() {    
@@ -74,9 +74,9 @@ public class PlayersPanel extends javax.swing.JPanel {
                 if(!e.getValueIsAdjusting()){
                 System.out.print(playerList.getSelectedValue());
                 System.out.print(playerList.getSelectedIndex());
-                int index = playerList.getSelectedIndex();
+                playerID = Integer.parseInt(playerList.getSelectedValue());
                 try {
-                    loadPlayerInfo(index + 1); // 临时用index + 1替代playerID
+                    loadPlayerInfo(playerID); 
                     } catch (SQLException ex) {
                         Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -106,14 +106,13 @@ public class PlayersPanel extends javax.swing.JPanel {
 
         playerInfoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Total # of Matches", "234"},
-                {"Most often played Map", "Summoner Rift"},
-                {"most often used item ", "GhostBlade"},
-                {"Total Game Time", "342 Minutes"},
-                {"Top three champ used", "Lucian, Jinx, Kalista"},
-                {"Archenemy Champ", "Leona"},
-                {"Symbol Champ & Item", "Lucian & GhostBlade"},
-                {"Most Used Position", "ADC"},
+                {"wins", ""},
+                {"loses", ""},
+                {"Most often played Map", ""},
+                {"most often used item ", ""},
+                {"Total Game Time", ""},
+                {"Top champ used", ""},
+                {"Most Used Position", ""},
                 {null, null}
             },
             new String [] {
@@ -132,13 +131,30 @@ public class PlayersPanel extends javax.swing.JPanel {
         jButton1.setText("Look Up Answers");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                try {
+                    jButton1ActionPerformed(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PlayersPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         
         jButton5.setText("Delete Player");
-
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try {
+                    jButton5ActionPerformed(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PlayersPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
         jButton6.setText("Refresh");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
   //      jButton3.setText("switch");
     //    jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -213,12 +229,44 @@ public class PlayersPanel extends javax.swing.JPanel {
         jDialog1.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         //look up
       //  new NewJFrame().setVisible(true);
+      ArrayList result = playerLogic.lookUp(playerID);
+      playerInfoTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"wins", result.get(0)},
+                {"loses", result.get(1)},
+                {"Most often played Map", result.get(2)},
+                {"most often used item ", result.get(3)},
+                {"Total Game Time", result.get(4)},
+                {"Top champ used", result.get(5)},
+                {"Most Used Position", result.get(6)},
+                {null, null}
+            },
+            new String [] {
+                "Question", "Answer"
+            }
+        ));
         
     }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //Delete Player
+        playerLogic.deletePlayer(playerID);//not implemented yet
+        
+    }
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        //refresh
+        playerList.setModel(new javax.swing.AbstractListModel<String>() {
+            ArrayList<Player> playerList = playerLogic.allPlayers();
+            public int getSize() { return playerList.size(); }
+            public String getElementAt(int i) { return Integer.toString(playerList.get(i).playerID); }
+        });
+        
+    }
     private void loadPlayerInfo(int playerID) throws SQLException{
         
         ArrayList result = playerLogic.playerInfo(playerID);
@@ -279,6 +327,7 @@ public class PlayersPanel extends javax.swing.JPanel {
     private javax.swing.JTable playerInfoTable;
     private javax.swing.JTable playerIDTable;
     private AddPlayerDialog jDialog1;
+    private int playerID;
 
     // Variables declaration - do not modify                     
     // End of variables declaration                   

@@ -4,14 +4,25 @@
  * and open the template in the editor.
  */
 package view;
+import logic.PlayerLogic;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.imageio.*;
 import view.ImagePanel;
 import java.lang.Object;
 import java.io.*;
 import java.awt.image.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import model.Player;
 /**
  *
  * @author GaryFolder
@@ -64,7 +75,11 @@ public class AddPlayerDialog extends javax.swing.JDialog {
         });
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                try {
+                    jButton7ActionPerformed(evt);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddPlayerDialog.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         
@@ -111,14 +126,15 @@ public class AddPlayerDialog extends javax.swing.JDialog {
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
     }        
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) throws SQLException {                                         
         // TODO add your handling code here:
         text1 = new String(jTextField1.getText());
         text2 = new String(jTextField2.getText());
         text3 = new String(jTextField3.getText());
-        
-        System.out.print(text1 + text2 + text3);
-    }                                        
+        playerLogic.addPlayer(Integer.parseInt(text1), text3, text2);
+        dispose();
+    }                       
+    public PlayerLogic playerLogic = PlayerLogic.getInstance();
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
