@@ -25,10 +25,17 @@ import java.util.ArrayList;
  * @author GaoYifei
  */
 public class DBConnection {
+//    String JDBC_DRIVER= "com.mysql.jdbc.Driver";  
+//    String DB_URL = "jdbc:mysql://localhost:3306/project1";
+//    String USER = "root";
+//    String PASS = "root";
+//    Connection conn = null;
+
+// Please modify the configuration to suit your environment !
     String JDBC_DRIVER= "com.mysql.jdbc.Driver";  
-    String DB_URL = "jdbc:mysql://localhost:3306/project1";
+    String DB_URL = "jdbc:mysql://localhost/test";
     String USER = "root";
-    String PASS = "root";
+    String PASS = "";
     Connection conn = null;
     
     private int maxPlayerID = 0;
