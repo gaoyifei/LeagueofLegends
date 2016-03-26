@@ -113,11 +113,18 @@ public class AddPlayerDialog extends javax.swing.JDialog {
     }        
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
+        text1 = new String(jTextField1.getText());
+        text2 = new String(jTextField2.getText());
+        text3 = new String(jTextField3.getText());
+        
+        System.out.print(text1 + text2 + text3);
     }                                        
-
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private String text1;
+    private String text2;
+    private String text3;
     private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel2;
 
