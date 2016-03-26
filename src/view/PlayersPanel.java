@@ -108,10 +108,12 @@ public class PlayersPanel extends javax.swing.JPanel {
             new Object [][] {
                 {"wins", ""},
                 {"loses", ""},
-                {"Most often played Map", ""},
-                {"most often used item ", ""},
+                {"Most played Map", ""},
+                {"most used item ", ""},
                 {"Total Game Time", ""},
-                {"Top champ used", ""},
+                {"Best Hero(BH)", ""},
+                {"BH Winrate", ""},
+                {"BH favorate Equip",""},
                 {"Most Used Position", ""},
                 {null, null}
             },
@@ -238,11 +240,13 @@ public class PlayersPanel extends javax.swing.JPanel {
             new Object [][] {
                 {"wins", result.get(0)},
                 {"loses", result.get(1)},
-                {"Most often played Map", result.get(2)},
-                {"most often used item ", result.get(3)},
+                {"Most played Map", result.get(2)},
+                {"most used item ", result.get(3)},
                 {"Total Game Time", result.get(4)},
-                {"Top champ used", result.get(5)},
-                {"Most Used Position", result.get(6)},
+                {"Best Hero(BH)", result.get(5)},
+                {"BH Winrate", result.get(6)},
+                {"BH favorate Equip",result.get(7)},
+                {"Most Used Position", result.get(8)},
                 {null, null}
             },
             new String [] {

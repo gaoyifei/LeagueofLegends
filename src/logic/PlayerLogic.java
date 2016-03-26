@@ -60,6 +60,7 @@ public class PlayerLogic {
         Hero bestHero = new Hero();
         bestHero = db.getBestHero(pID);
         String favorRole = db.getFavorRoles(pID);
+        String equipBestHero = db.getFavorEquipOfBestHero(playerID);
 //        HashMap test = new HashMap();
 //        test.put("pID", pID);
 //        test.put("wins", wins);
@@ -76,8 +77,9 @@ public class PlayerLogic {
         result.add(commentMap);
         result.add(favorEquip);
         result.add(Integer.toString(totalTime));
-//        result.add(commentMap);
         result.add(bestHero.heroName);
+        result.add(bestHero.heroWinrate);
+        result.add(equipBestHero);
         result.add(favorRole);
 
         return result;
