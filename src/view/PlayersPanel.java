@@ -136,6 +136,12 @@ public class PlayersPanel extends javax.swing.JPanel {
                 try {
                     jButton1ActionPerformed(evt);
                 } catch (SQLException ex) {
+                    String message = "\"Error\"\n"
+                         + "One or more attributes searched returned NULL value.\n"
+                          + "In particuar, please make sure this player has enough information \n"
+                            + "in the database for all queries to be done.";
+                 JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+        JOptionPane.ERROR_MESSAGE);
                     Logger.getLogger(PlayersPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -147,6 +153,7 @@ public class PlayersPanel extends javax.swing.JPanel {
                 try {
                     jButton5ActionPerformed(evt);
                 } catch (SQLException ex) {
+                    
                     Logger.getLogger(PlayersPanel.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
