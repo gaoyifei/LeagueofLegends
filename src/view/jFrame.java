@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package view;
+import logic.PlayerLogic;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,6 +49,7 @@ private BufferedImage getScaledImage(BufferedImage src, int w, int h){
     /**
      * Creates new form NewJFrame
      */
+    public PlayerLogic playerLogic = PlayerLogic.getInstance();
     public jFrame() {
         BufferedImage myImage = new BufferedImage(5, 5, BufferedImage.TYPE_INT_ARGB);;
         try{

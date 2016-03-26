@@ -4,14 +4,25 @@
  * and open the template in the editor.
  */
 package view;
+import logic.PlayerLogic;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.imageio.*;
 import view.ImagePanel;
 import java.lang.Object;
 import java.io.*;
 import java.awt.image.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import model.Player;
 /**
  *
  * @author GaryFolder
@@ -21,6 +32,8 @@ public class PlayersPanel extends javax.swing.JPanel {
     /**
      * Creates new form PlayerPanel
      */
+    public PlayerLogic playerLogic = PlayerLogic.getInstance();
+
     public PlayersPanel() {
         initComponents();
     }
@@ -34,11 +47,11 @@ public class PlayersPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
+        playerList = new javax.swing.JList<>();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        playerIDTable = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        playerInfoTable = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -47,29 +60,51 @@ public class PlayersPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jDialog1 = new AddPlayerDialog();
 
-        
-        jList2.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Player1", "Player2", "Player3", "Player4", "Player5", "Player6", "Player7", "Player8", "Player9", "Player10", "Player11", "Player12", "Player13", "Player14", "Player15", "Player16", "Player17", "Player18", "Player19", "Player20" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList2);
+        ListSelectionModel listSelectionModel = playerList.getSelectionModel();
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        playerList.setModel(new javax.swing.AbstractListModel<String>() {
+            ArrayList<Player> playerList = playerLogic.allPlayers();
+            public int getSize() { return playerList.size(); }
+            public String getElementAt(int i) { return playerList.get(i).nickName; }
+        });
+                // Listener 
+        ListSelectionListener listSelectionListener = new ListSelectionListener() {    
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting()){
+                System.out.print(playerList.getSelectedValue());
+                System.out.print(playerList.getSelectedIndex());
+                int index = playerList.getSelectedIndex();
+                try {
+                    loadPlayerInfo(index + 1); // 临时用index + 1替代playerID
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        listSelectionModel.addListSelectionListener(listSelectionListener);
+
+        
+        
+        
+        jScrollPane2.setViewportView(playerList);
+
+        playerIDTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"PlayerID", "Player1"},
-                {"PlayerName", "PlayName"},
-                {"PlayerRank", "Platinum V"},
-                {"PlayerLevel", "30"},
+                {"PlayerID", ""},
+                {"PlayerName", ""},
+                {"PlayerRank", ""},
+                {"PlayerLevel", ""},
                 {null, null}
             },
             new String [] {
                 "Info", "Player"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(playerIDTable);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        playerInfoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Total # of Matches", "234"},
                 {"Most often played Map", "Summoner Rift"},
@@ -82,10 +117,10 @@ public class PlayersPanel extends javax.swing.JPanel {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Question", "Answer"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(playerInfoTable);
 
         jButton2.setText("Add Player");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +129,7 @@ public class PlayersPanel extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Look Up");
+        jButton1.setText("Look Up Answers");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -184,6 +219,21 @@ public class PlayersPanel extends javax.swing.JPanel {
       //  new NewJFrame().setVisible(true);
         
     }//GEN-LAST:event_jButton1ActionPerformed
+    private void loadPlayerInfo(int playerID) throws SQLException{
+        
+        ArrayList result = playerLogic.playerInfo(playerID);
+        playerIDTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"PlayerID", result.get(0)},
+                {"PlayerName", result.get(1)},
+                {"PlayerRank", result.get(2)},
+                {"PlayerLevel", result.get(3)},
+            },
+            new String [] {
+                "Info", "Player"
+            }
+        ));
+    }
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -222,12 +272,12 @@ public class PlayersPanel extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> playerList;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable playerInfoTable;
+    private javax.swing.JTable playerIDTable;
     private AddPlayerDialog jDialog1;
 
     // Variables declaration - do not modify                     

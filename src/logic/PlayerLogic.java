@@ -56,7 +56,7 @@ public class PlayerLogic {
         int loses = db.getPlayerLose(pID);
         int totalTime = db.getTotalTime(pID);
         
-        String commentMap = db.getMostCommonMap(pID);
+//        String commentMap = db.getMostCommonMap(pID);
 //        String favorEquip = db.getFavorEquip(pID);
 //        String favorRole = db.getFavorRoles(pID);
 //        Hero bestHero = new Hero();
@@ -79,7 +79,7 @@ public class PlayerLogic {
         result.add(Integer.toString(wins));
         result.add(Integer.toString(loses));
         result.add(Integer.toString(totalTime));
-        result.add(commentMap);
+//        result.add(commentMap);
 //        result.add(favorEquip);
 //        result.add(favorRole);
 //        result.add(bestHero.heroName);

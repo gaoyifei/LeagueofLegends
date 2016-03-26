@@ -33,7 +33,7 @@ public class DBConnection {
 
 // Please modify the configuration to suit your environment !
     String JDBC_DRIVER= "com.mysql.jdbc.Driver";  
-    String DB_URL = "jdbc:mysql://localhost/test";
+    String DB_URL = "jdbc:mysql://localhost:3306/project1";
     String USER = "root";
     String PASS = "";
     Connection conn = null;
