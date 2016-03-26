@@ -242,7 +242,7 @@ public class PlayersPanel extends javax.swing.JPanel {
                 {"loses", result.get(1)},
                 {"Most played Map", result.get(2)},
                 {"most used item ", result.get(3)},
-                {"Total Game Time", result.get(4)},
+                {"Total Game Time", result.get(4)+" mins"},
                 {"Best Hero(BH)", result.get(5)},
                 {"BH Winrate", result.get(6)},
                 {"BH favorate Equip",result.get(7)},
