@@ -24,6 +24,14 @@ public class LeagueofLegends {
     public LeagueofLegends() throws SQLException {
         this.init();
         
+        //testing random
+        int randommatch;
+        int fi = 1;
+        while(fi<10){
+            randommatch = db.simulateHistory();
+            fi = fi + 1; 
+        }
+        
         //testing Player-oriented SQL
         Player p = new Player();
         p = db.getPlayer(1);
