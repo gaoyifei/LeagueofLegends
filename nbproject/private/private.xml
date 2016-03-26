@@ -4,13 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/view/jFrame.java</file>
-            <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/view/PlayerPanel.java</file>
+            <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/JDBC/DBConnection.java</file>
             <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/view/PlayersPanel.java</file>
-            <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/logic/GameLogic.java</file>
             <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/view/ImagePanel.java</file>
-            <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/view/MainFrame.java</file>
             <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/view/AddPlayerDialog.java</file>
-            <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/leagueoflegends/LeagueofLegends.java</file>
             <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/logic/PlayerLogic.java</file>
             <file>file:/Users/GaryFolder/Desktop/Database%20CS%20542/NetBeans%20Hub/LeagueofLegendsG/src/view/NewJFrame.java</file>
         </group>
