@@ -487,10 +487,11 @@ public class DBConnection {
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
         int maxid = rs.getInt("maxid");
+        maxid = maxid + 1;
         //random 10 different players as participants
         int[] participant = randomCommon(1,maxid,10);
         //random 10 different heros
-        int[] herochosen = randomCommon(1,128,10);
+        int[] herochosen = randomCommon(1,129,10);
         //create 1 gameHistory
         int mapid = (int) Math.round(Math.random()*(3-1)+1);
         int playingtime = (int) Math.round(Math.random()*(70-15)+15);
@@ -553,7 +554,9 @@ public class DBConnection {
         System.out.println("sql="+sql11);
         int rsn11 = stm11.executeUpdate(sql11);
         
-        return rsn11;      
+        int result = rs2 + rsn2 + rsn3 + rsn4 + rsn5 + rsn6 + rsn7 + rsn8 + rsn9 + rsn10 + rsn11;
+        
+        return result;      
         
     }
     
