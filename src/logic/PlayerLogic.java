@@ -57,7 +57,7 @@ public class PlayerLogic {
     }
     
     
-    public ArrayList lookUp(int playerID) throws SQLException{
+    public ArrayList<String> lookUp(int playerID) throws SQLException{
         int pID = playerID;
         Player player = db.getPlayer(pID);
         int wins = db.getPlayerWins(pID);
@@ -80,7 +80,7 @@ public class PlayerLogic {
 //        test.put("favorRule", favorEquip);
 //        test.put("bestHero", bestHero);
         
-        ArrayList result = new ArrayList();
+        ArrayList<String> result = new ArrayList();
 
         result.add(Integer.toString(wins));
         result.add(Integer.toString(loses));
@@ -88,21 +88,19 @@ public class PlayerLogic {
         result.add(favorEquip);
         result.add(Integer.toString(totalTime));
         result.add(bestHero.heroName);
-        result.add(bestHero.heroWinrate);
+        result.add(Float.toString(bestHero.heroWinrate));
         result.add(equipBestHero);
         result.add(favorRole);
 
         return result;
     }
-    public ArrayList playerInfo(int playerID) throws SQLException{
+    public ArrayList<String> playerInfo(int playerID) throws SQLException{
         int pID = playerID;
         Player player = db.getPlayer(pID);
         int level = player.level;
         String nikeName  = player.nickName;
         String rank = player.rank;
-        int wins = db.getPlayerWins(pID);
-        int loses = db.getPlayerLose(pID);
-        int totalTime = db.getTotalTime(pID);
+       
         
 //        String commentMap = db.getMostCommonMap(pID);
 //        String favorEquip = db.getFavorEquip(pID);
@@ -119,14 +117,12 @@ public class PlayerLogic {
 //        test.put("favorRule", favorEquip);
 //        test.put("bestHero", bestHero);
         
-        ArrayList result = new ArrayList();
+        ArrayList<String>result = new ArrayList();
         result.add(Integer.toString(pID));
         result.add(nikeName);
         result.add(rank);
         result.add(Integer.toString(level));
-        result.add(Integer.toString(wins));
-        result.add(Integer.toString(loses));
-        result.add(Integer.toString(totalTime));
+        
 //        result.add(commentMap);
 
 //        result.add(favorEquip);

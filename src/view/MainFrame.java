@@ -39,6 +39,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("League of Legend");
+        setPreferredSize(new java.awt.Dimension(1400, 800));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1080, 720));
 
@@ -117,11 +118,18 @@ public class MainFrame extends javax.swing.JFrame {
     private void init() throws SQLException {
      
         gamePanel.mainFrame = this;
+        playerPanel.mainFrame = this;
         this.setContentPane(gamePanel);
     }
     
-    public void changePanel(){
-        this.setContentPane(playerPanel);
+    public void changePanel(int parameter){
+        if(parameter == 1){
+            this.setContentPane(playerPanel);
+        }
+        else{
+            this.setContentPane(gamePanel);
+            
+        }
         this.repaint();
         this.validate();
     

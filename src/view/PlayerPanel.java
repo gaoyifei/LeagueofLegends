@@ -5,17 +5,40 @@
  */
 package view;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
+import logic.PlayerLogic;
+import model.Player;
+
 /**
  *
  * @author GaoYifei
  */
 public class PlayerPanel extends javax.swing.JPanel {
-
+    public MainFrame mainFrame;
+    public PlayerLogic playerLogic = PlayerLogic.getInstance();
+    private Dialog dialog;
+    private ListSelectionModel listSelectionModel;
+    private int playerID;
     /**
      * Creates new form PlayerPanel
      */
     public PlayerPanel() {
         initComponents();
+        init();
     }
 
     /**
@@ -28,43 +51,124 @@ public class PlayerPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        playerList = new javax.swing.JList();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        playerInfoTable = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        addPlayerButton = new javax.swing.JLabel();
+        deletePlayerButton = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        switchButton = new javax.swing.JLabel();
+        lookUpButton = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        playerTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(1000, 800));
+        setForeground(new java.awt.Color(255, 255, 255));
+        setPreferredSize(new java.awt.Dimension(1400, 800));
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
+        playerList.setBackground(new java.awt.Color(94, 128, 109));
+        playerList.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        playerList.setForeground(new java.awt.Color(255, 255, 194));
+        playerList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(playerList);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        playerInfoTable.setBackground(new java.awt.Color(94, 128, 109));
+        playerInfoTable.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        playerInfoTable.setForeground(new java.awt.Color(250, 252, 194));
+        playerInfoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Questions", "Info"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        playerInfoTable.setRowHeight(30);
+        jScrollPane3.setViewportView(playerInfoTable);
 
-        jLabel1.setText("jLabel1");
+        addPlayerButton.setForeground(new java.awt.Color(250, 252, 194));
+        addPlayerButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/add_user.png"))); // NOI18N
+        addPlayerButton.setText("Add Player");
+        addPlayerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addPlayerButtonMouseClicked(evt);
+            }
+        });
 
-        jLabel2.setText("jLabel2");
+        deletePlayerButton.setForeground(new java.awt.Color(250, 252, 194));
+        deletePlayerButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/remove_user.png"))); // NOI18N
+        deletePlayerButton.setText("Delete Player");
+        deletePlayerButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deletePlayerButtonMouseClicked(evt);
+            }
+        });
 
-        jLabel3.setText("jLabel3");
+        jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(250, 252, 194));
+        jLabel12.setText("Detail Information");
 
-        jLabel4.setText("jLabel4");
+        jLabel13.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(250, 252, 194));
+        jLabel13.setText("Basic Information");
+
+        switchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/king.png"))); // NOI18N
+        switchButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                switchButtonMouseClicked(evt);
+            }
+        });
+
+        lookUpButton.setForeground(new java.awt.Color(250, 252, 194));
+        lookUpButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/binoculars.png"))); // NOI18N
+        lookUpButton.setText("Look Up Information");
+        lookUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lookUpButtonMouseClicked(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(250, 252, 194));
+        jLabel16.setText("Player List");
+
+        playerTable.setBackground(new java.awt.Color(94, 128, 109));
+        playerTable.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        playerTable.setForeground(new java.awt.Color(250, 252, 194));
+        playerTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title", "Info"
+            }
+        ));
+        playerTable.setRowHeight(30);
+        playerTable.setRowMargin(2);
+        jScrollPane2.setViewportView(playerTable);
+
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(250, 252, 194));
+        jLabel1.setText("Player Information");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -72,49 +176,232 @@ public class PlayerPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(102, 102, 102)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(236, 236, 236)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(switchButton)
+                        .addGap(332, 332, 332)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel13)
+                                .addGap(301, 301, 301)
+                                .addComponent(jLabel12))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(409, 409, 409)
+                                .addComponent(jLabel7))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(addPlayerButton)
+                                        .addGap(46, 46, 46)
+                                        .addComponent(deletePlayerButton))
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                                .addGap(69, 69, 69)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lookUpButton))))
+                        .addContainerGap(413, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(88, 88, 88)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
+                        .addGap(30, 30, 30)
                         .addComponent(jLabel1)
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel2)
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel3)
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel4)))
-                .addContainerGap(262, Short.MAX_VALUE))
+                        .addGap(65, 65, 65)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel16))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(260, 260, 260)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(deletePlayerButton)
+                                            .addComponent(addPlayerButton)
+                                            .addComponent(lookUpButton)))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(switchButton)))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void switchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_switchButtonMouseClicked
+        // TODO add your handling code here:
+        mainFrame.changePanel(0);
+    }//GEN-LAST:event_switchButtonMouseClicked
 
+    private void lookUpButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lookUpButtonMouseClicked
+       
+            // TODO add your handling code here:
+            playerID = Integer.parseInt((String) playerList.getSelectedValue());
+        try {
+            this.loadDetailInfo(playerID);
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+    }//GEN-LAST:event_lookUpButtonMouseClicked
+
+    private void addPlayerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPlayerButtonMouseClicked
+        // TODO add your handling code here:
+        dialog = new Dialog();
+        dialog.pack();
+        dialog.setVisible(true);
+    }//GEN-LAST:event_addPlayerButtonMouseClicked
+
+    private void deletePlayerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePlayerButtonMouseClicked
+        try {
+            // TODO add your handling code here:
+            playerLogic.deletePlayer(playerID);
+        } catch (SQLException ex) {
+            Logger.getLogger(PlayerPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_deletePlayerButtonMouseClicked
+   
+    
+    @Override
+    protected void paintComponent(Graphics g) {
+       super.paintComponent(g);
+       BufferedImage myImage = new BufferedImage(5, 5, BufferedImage.TYPE_INT_ARGB);;
+        try{
+           myImage = ImageIO.read(new File("src/pic/yasuo.jpg"));} 
+        catch (IOException e) {}
+        //myImage = getScaledImage(myImage,1080,720);
+        
+        g.drawImage(myImage, 0, 0, this);
+    }
+    
+    
+     private BufferedImage getScaledImage(BufferedImage src, int w, int h){
+    int finalw = w;
+    int finalh = h;
+    double factor = 1.0d;
+    if(src.getWidth() > src.getHeight()){
+        factor = ((double)src.getHeight()/(double)src.getWidth());
+        finalh = (int)(finalw * factor);                
+    }else{
+        factor = ((double)src.getWidth()/(double)src.getHeight());
+        finalw = (int)(finalh * factor);
+    }   
+
+    BufferedImage resizedImg = new BufferedImage(finalw, finalh, BufferedImage.TRANSLUCENT);
+    Graphics2D g2 = resizedImg.createGraphics();
+    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+    g2.drawImage(src, 0, 0, finalw, finalh, null);
+    g2.dispose();
+    return resizedImg;
+    
+    
+}
+     
+     private void init() {
+        
+        
+        listSelectionModel = playerList.getSelectionModel();
+
+        playerList.setModel(new javax.swing.AbstractListModel<String>() {
+             ArrayList<Player> playerList = playerLogic.allPlayers();
+            public int getSize() { return playerList.size(); }
+            public String getElementAt(int i) { return Integer.toString(playerList.get(i).playerID);}
+        });
+                // Listener 
+        ListSelectionListener listSelectionListener = new ListSelectionListener() {    
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(!e.getValueIsAdjusting()){
+                System.out.print(playerList.getSelectedValue());
+                System.out.print(playerList.getSelectedIndex());
+                playerID = Integer.parseInt((String) playerList.getSelectedValue());
+                try {
+                    loadPlayerInfo(playerID); 
+                    } catch (SQLException ex) {
+                        Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        };
+        listSelectionModel.addListSelectionListener(listSelectionListener);
+
+    }
+     
+    private void loadPlayerInfo(int playerID) throws SQLException{
+        playerID = Integer.parseInt((String) playerList.getSelectedValue());
+        ArrayList<String> result = playerLogic.playerInfo(playerID);
+        playerTable.setModel(new DefaultTableModel(
+                    new Object [][] {
+                        {"Player ID", result.get(0)},
+                        {"Name", result.get(1)},
+                        {"Rank", result.get(2)},
+                        {"Level ", result.get(3)},
+                        
+                    },
+                    new String [] {
+                        "Title", "Info"
+                    }
+            ));
+        
+        
+        
+    }
+     
+    private void loadDetailInfo(int playerID) throws SQLException{
+        ArrayList result = playerLogic.lookUp(playerID);
+        playerInfoTable.setModel(new javax.swing.table.DefaultTableModel(
+                    new Object [][] {
+                        {"Wins", result.get(0)},
+                        {"Loses", result.get(1)},
+                        {"Most played Map", result.get(2)},
+                        {"Most used item ", result.get(3)},
+                        {"Total Game Time", result.get(4)+" mins"},
+                        {"Best Hero(BH)", result.get(5)},
+                        {"BH Winrate", result.get(6)+" %"},
+                        {"BH favorate Equip",result.get(7)},
+                        {"Most Used Position", result.get(8)},
+                    },
+                    new String [] {
+                        "Question", "Answer"
+                    }
+            ));
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addPlayerButton;
+    private javax.swing.JLabel deletePlayerButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JList jList1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JLabel lookUpButton;
+    private javax.swing.JTable playerInfoTable;
+    private javax.swing.JList playerList;
+    private javax.swing.JTable playerTable;
+    private javax.swing.JLabel switchButton;
     // End of variables declaration//GEN-END:variables
+
+    
 }

@@ -152,7 +152,7 @@ public class GamePanel extends javax.swing.JPanel {
         simulateButton = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(1080, 720));
+        setPreferredSize(new java.awt.Dimension(1400, 800));
 
         equipTable.setAutoCreateRowSorter(true);
         equipTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -304,11 +304,10 @@ public class GamePanel extends javax.swing.JPanel {
                                 .addGap(87, 87, 87)
                                 .addComponent(equButton)
                                 .addGap(32, 32, 32))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(mapPane, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addContainerGap()
-                                    .addComponent(equipPane, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE))))
+                            .addComponent(mapPane)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(equipPane, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)))
                         .addGap(41, 41, 41))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(35, 35, 35)
@@ -358,11 +357,10 @@ public class GamePanel extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(heroButton)
                             .addComponent(jLabel2))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(heroPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(equipPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 44, Short.MAX_VALUE)
+                .addGap(35, 54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4))
@@ -434,7 +432,7 @@ public class GamePanel extends javax.swing.JPanel {
 
     private void switchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_switchButtonMouseClicked
         // TODO add your handling code here:
-        mainFrame.changePanel();
+        mainFrame.changePanel(1);
     }//GEN-LAST:event_switchButtonMouseClicked
 
 
