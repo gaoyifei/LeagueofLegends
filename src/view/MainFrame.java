@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 public class MainFrame extends javax.swing.JFrame {
     GamePanel gamePanel = new GamePanel();
     PlayerPanel playerPanel = new PlayerPanel();
+    MenuPanel menuPanel = new MenuPanel();
+    MapPanel mapPanel = new MapPanel();
     /**
      * Creates new form MainFrame
      */
@@ -116,19 +118,26 @@ public class MainFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void init() throws SQLException {
-     
+        menuPanel.mainFrame = this;
+        mapPanel.mainFrame = this;
         gamePanel.mainFrame = this;
         playerPanel.mainFrame = this;
-        this.setContentPane(gamePanel);
+        this.setContentPane(menuPanel);
     }
     
     public void changePanel(int parameter){
-        if(parameter == 1){
+        if(parameter == 0){
+            this.setContentPane(menuPanel);
+        }
+        else if(parameter == 1){
             this.setContentPane(playerPanel);
         }
-        else{
+        else if(parameter == 2){
             this.setContentPane(gamePanel);
             
+        }
+        else{
+            this.setContentPane(mapPanel);
         }
         this.repaint();
         this.validate();

@@ -128,7 +128,7 @@ public class PlayerPanel extends javax.swing.JPanel {
         jLabel13.setForeground(new java.awt.Color(250, 252, 194));
         jLabel13.setText("Basic Information");
 
-        switchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/king.png"))); // NOI18N
+        switchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/home.png"))); // NOI18N
         switchButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 switchButtonMouseClicked(evt);
@@ -218,10 +218,11 @@ public class PlayerPanel extends javax.swing.JPanel {
                         .addGap(30, 30, 30)
                         .addComponent(jLabel1)
                         .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel16))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel12)
+                                .addComponent(jLabel16)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -285,7 +286,7 @@ public class PlayerPanel extends javax.swing.JPanel {
        super.paintComponent(g);
        BufferedImage myImage = new BufferedImage(5, 5, BufferedImage.TYPE_INT_ARGB);;
         try{
-           myImage = ImageIO.read(new File("src/pic/yasuo.jpg"));} 
+           myImage = ImageIO.read(new File("src/pic/yasuoBlur.png"));} 
         catch (IOException e) {}
         //myImage = getScaledImage(myImage,1080,720);
         

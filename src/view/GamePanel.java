@@ -38,8 +38,7 @@ public class GamePanel extends javax.swing.JPanel {
     ArrayList rankDistri;
     DefaultTableModel equipModel;
     DefaultTableModel heroModel;
-    DefaultTableModel mapModel;
-    DefaultTableModel rankModel;
+    
     int eFlag;
     int hFlag;
     /**
@@ -70,24 +69,11 @@ public class GamePanel extends javax.swing.JPanel {
             }
         );
         
-        mapModel = new DefaultTableModel(
-        gameLogic.listMap(),
-                new String [] {
-                "Map ID", "Map Name", "Map Size", "Total Time"
-            }
-        );
-        
-        rankModel = new DefaultTableModel(
-        gameLogic.rankDistri(),
-        new String [] {
-                "Rank", "Sum", "Percentage"
-            }
-        );
+       
         
         equipTable.setModel(equipModel);
         heroTable.setModel(heroModel);
-        mapTable.setModel(mapModel);
-        rankTable.setModel(rankModel);
+        
         
         
         
@@ -98,7 +84,7 @@ public class GamePanel extends javax.swing.JPanel {
        super.paintComponent(g);
        BufferedImage myImage = new BufferedImage(5, 5, BufferedImage.TYPE_INT_ARGB);;
         try{
-           myImage = ImageIO.read(new File("src/pic/lol.png"));} 
+           myImage = ImageIO.read(new File("src/pic/lolBlur.png"));} 
         catch (IOException e) {}
         //myImage = getScaledImage(myImage,1080,720);
         
@@ -136,16 +122,10 @@ public class GamePanel extends javax.swing.JPanel {
 
         equipPane = new javax.swing.JScrollPane();
         equipTable = new javax.swing.JTable();
-        mapPane = new javax.swing.JScrollPane();
-        mapTable = new javax.swing.JTable();
-        rankPane = new javax.swing.JScrollPane();
-        rankTable = new javax.swing.JTable();
         heroPane = new javax.swing.JScrollPane();
         heroTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         equButton = new javax.swing.JButton();
         heroButton = new javax.swing.JButton();
         switchButton = new javax.swing.JLabel();
@@ -155,6 +135,9 @@ public class GamePanel extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1400, 800));
 
         equipTable.setAutoCreateRowSorter(true);
+        equipTable.setBackground(new java.awt.Color(35, 74, 142));
+        equipTable.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        equipTable.setForeground(new java.awt.Color(187, 149, 137));
         equipTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -169,51 +152,10 @@ public class GamePanel extends javax.swing.JPanel {
         equipTable.setOpaque(false);
         equipPane.setViewportView(equipTable);
 
-        mapTable.setAutoCreateRowSorter(true);
-        mapTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Map ID", "Map Name", "Map Size", "Total Time"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        mapPane.setViewportView(mapTable);
-
-        rankTable.setAutoCreateRowSorter(true);
-        rankTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Rank", "Sum", "Percentage"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        rankPane.setViewportView(rankTable);
-
         heroTable.setAutoCreateRowSorter(true);
+        heroTable.setBackground(new java.awt.Color(35, 74, 142));
+        heroTable.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        heroTable.setForeground(new java.awt.Color(187, 149, 137));
         heroTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -243,14 +185,6 @@ public class GamePanel extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Hero  Statistics");
 
-        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Map  Statistics");
-
-        jLabel4.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Player  Rank Statistics");
-
         equButton.setText("Order By Winrate");
         equButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -275,7 +209,7 @@ public class GamePanel extends javax.swing.JPanel {
             }
         });
 
-        switchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/queen.png"))); // NOI18N
+        switchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/home.png"))); // NOI18N
         switchButton.setToolTipText("Player Info\n");
         switchButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -285,6 +219,11 @@ public class GamePanel extends javax.swing.JPanel {
 
         simulateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/controller.png"))); // NOI18N
         simulateButton.setToolTipText("Simulate the Game\n");
+        simulateButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                simulateButtonMouseClicked(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("PingFang TC", 1, 36)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
@@ -295,80 +234,64 @@ public class GamePanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(switchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5)
+                .addGap(454, 454, 454)
+                .addComponent(simulateButton)
+                .addGap(66, 66, 66))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(64, 64, 64)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(equipPane, javax.swing.GroupLayout.PREFERRED_SIZE, 1196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 140, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(heroPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
-                                .addGap(87, 87, 87)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(equButton)
-                                .addGap(32, 32, 32))
-                            .addComponent(mapPane)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(equipPane, javax.swing.GroupLayout.DEFAULT_SIZE, 650, Short.MAX_VALUE)))
-                        .addGap(41, 41, 41))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(switchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(rankPane, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(heroPane, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(26, 26, 26)
-                        .addComponent(heroButton)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(simulateButton)
-                        .addGap(52, 52, 52))))
+                                .addGap(161, 161, 161))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(heroButton)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(203, 203, 203)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4)
-                .addGap(94, 94, 94))
+                .addGap(230, 230, 230)
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(switchButton)
-                            .addComponent(simulateButton))
-                        .addGap(77, 77, 77)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(equButton))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(simulateButton)
+                            .addComponent(switchButton)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel5)
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel5)))
+                .addGap(32, 32, 32)
+                .addComponent(jLabel2)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(heroPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(heroButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(heroButton)
-                            .addComponent(jLabel2))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(heroPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(equipPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 54, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(rankPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mapPane, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
+                            .addComponent(jLabel1)
+                            .addComponent(equButton))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(equipPane, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(119, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -432,8 +355,13 @@ public class GamePanel extends javax.swing.JPanel {
 
     private void switchButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_switchButtonMouseClicked
         // TODO add your handling code here:
-        mainFrame.changePanel(1);
+        mainFrame.changePanel(0);
     }//GEN-LAST:event_switchButtonMouseClicked
+
+    private void simulateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simulateButtonMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_simulateButtonMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -445,13 +373,7 @@ public class GamePanel extends javax.swing.JPanel {
     private javax.swing.JTable heroTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JScrollPane mapPane;
-    private javax.swing.JTable mapTable;
-    private javax.swing.JScrollPane rankPane;
-    private javax.swing.JTable rankTable;
     private javax.swing.JLabel simulateButton;
     private javax.swing.JLabel switchButton;
     // End of variables declaration//GEN-END:variables
