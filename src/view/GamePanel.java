@@ -217,7 +217,10 @@ public class GamePanel extends javax.swing.JPanel {
             }
         });
 
+        simulateButton.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
+        simulateButton.setForeground(new java.awt.Color(255, 255, 255));
         simulateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/controller.png"))); // NOI18N
+        simulateButton.setText("Simulate Game");
         simulateButton.setToolTipText("Simulate the Game\n");
         simulateButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -359,8 +362,12 @@ public class GamePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_switchButtonMouseClicked
 
     private void simulateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simulateButtonMouseClicked
-        // TODO add your handling code here:
-        
+        try {
+            // TODO add your handling code here:
+            gameLogic.simulate();
+        } catch (SQLException ex) {
+            Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_simulateButtonMouseClicked
 
 

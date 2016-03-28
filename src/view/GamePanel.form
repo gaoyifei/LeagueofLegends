@@ -221,9 +221,16 @@
     </Component>
     <Component class="javax.swing.JLabel" name="simulateButton">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Lucida Grande" size="14" style="1"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/pic/controller.png"/>
         </Property>
+        <Property name="text" type="java.lang.String" value="Simulate Game"/>
         <Property name="toolTipText" type="java.lang.String" value="Simulate the Game&#xa;"/>
       </Properties>
       <Events>

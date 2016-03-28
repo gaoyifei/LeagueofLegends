@@ -89,15 +89,15 @@ public class MenuPanel extends javax.swing.JPanel {
         });
 
         playerLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        playerLabel.setForeground(new java.awt.Color(102, 102, 255));
+        playerLabel.setForeground(new java.awt.Color(255, 255, 255));
         playerLabel.setText("Player Information");
 
         mapLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        mapLabel.setForeground(new java.awt.Color(102, 102, 255));
+        mapLabel.setForeground(new java.awt.Color(255, 255, 255));
         mapLabel.setText("Map Info And Rank");
 
         gameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        gameLabel.setForeground(new java.awt.Color(102, 102, 255));
+        gameLabel.setForeground(new java.awt.Color(255, 255, 255));
         gameLabel.setText("Game Stastics");
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
@@ -142,7 +142,7 @@ public class MenuPanel extends javax.swing.JPanel {
                 .addComponent(playerButton, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(gameButton)
