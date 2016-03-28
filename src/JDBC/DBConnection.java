@@ -458,6 +458,110 @@ public class DBConnection {
         
     }
     
+    public static int[] randomCommon(int min, int max, int n){  
+        if (n > (max - min + 1) || max < min) {
+            return null;
+        }
+        int[] result = new int[n];
+        int count = 0;
+        while (count < n) {
+            int num = (int) (Math.random() * (max - min)) + min;
+            boolean flag = true;
+            for (int j = 0; j < n; j++) {
+                if (num == result[j]) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                result[count] = num;
+                count++;
+            }
+        }
+        return result;
+    }
+    
+    public int simulateHistory() throws SQLException{
+        //find how many exist players
+        String query = "select max(playerID) as maxid from player;";
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery(query);
+        rs.next();
+        int maxid = rs.getInt("maxid");
+        maxid = maxid + 1;
+        //random 10 different players as participants
+        int[] participant = randomCommon(1,maxid,10);
+        //random 10 different heros
+        int[] herochosen = randomCommon(1,129,10);
+        //create 1 gameHistory
+        int mapid = (int) Math.round(Math.random()*(3-1)+1);
+        int playingtime = (int) Math.round(Math.random()*(70-15)+15);
+        String sql = "INSERT INTO gameHistory SET mapID=" + mapid + ",playingTime=" + playingtime + ";";
+        Statement stmt2 = conn.createStatement();
+        System.out.println("sql="+sql);
+        int rs2 = stmt2.executeUpdate(sql);
+        //find matchID of the new gameHistory
+        String query2 = "select max(matchID) as maxid from gameHistory;";
+        Statement stmt3 = conn.createStatement();
+        ResultSet rs3 = stmt3.executeQuery(query2);
+        rs3.next();
+        int newmatchid = rs3.getInt("maxid");
+        //creat 10 matchHistory
+        int gamewin = 1;
+        int gamelose = 0;
+        String top = "top";
+        String mid = "mid";
+        String bot = "bot";
+        String sup = "sup";
+        String jungle = "jungle";
+        String sql2 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[0] + ",gameResult=" + gamewin + ",roles='" + top + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[0] + ";";
+        Statement stm2 = conn.createStatement();
+        System.out.println("sql="+sql2);
+        int rsn2 = stm2.executeUpdate(sql2);
+        String sql3 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[1] + ",gameResult=" + gamewin + ",roles='" + mid + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[1] + ";";
+        Statement stm3 = conn.createStatement();
+        System.out.println("sql="+sql3);
+        int rsn3 = stm3.executeUpdate(sql3);
+        String sql4 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[2] + ",gameResult=" + gamewin + ",roles='" + bot + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[2] + ";";
+        Statement stm4 = conn.createStatement();
+        System.out.println("sql="+sql4);
+        int rsn4 = stm4.executeUpdate(sql4);
+        String sql5 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[3] + ",gameResult=" + gamewin + ",roles='" + sup + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[3] + ";";
+        Statement stm5 = conn.createStatement();
+        System.out.println("sql="+sql5);
+        int rsn5 = stm5.executeUpdate(sql5);
+        String sql6 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[4] + ",gameResult=" + gamewin + ",roles='" + jungle + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[4] + ";";
+        Statement stm6 = conn.createStatement();
+        System.out.println("sql="+sql6);
+        int rsn6 = stm6.executeUpdate(sql6);
+        String sql7 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[5] + ",gameResult=" + gamelose + ",roles='" + top + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[5] + ";";
+        Statement stm7 = conn.createStatement();
+        System.out.println("sql="+sql7);
+        int rsn7 = stm7.executeUpdate(sql7);
+        String sql8 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[6] + ",gameResult=" + gamelose + ",roles='" + mid + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[6] + ";";
+        Statement stm8 = conn.createStatement();
+        System.out.println("sql="+sql8);
+        int rsn8 = stm8.executeUpdate(sql8);
+        String sql9 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[7] + ",gameResult=" + gamelose + ",roles='" + bot + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[7] + ";";
+        Statement stm9 = conn.createStatement();
+        System.out.println("sql="+sql9);
+        int rsn9 = stm9.executeUpdate(sql9);
+        String sql10 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[8] + ",gameResult=" + gamelose + ",roles='" + sup + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[8] + ";";
+        Statement stm10 = conn.createStatement();
+        System.out.println("sql="+sql10);
+        int rsn10 = stm10.executeUpdate(sql10);
+        String sql11 = "INSERT INTO matchHistory SET matchID=" + newmatchid + ",playerID=" + participant[9] + ",gameResult=" + gamelose + ",roles='" + jungle + "',equipID=" + (int) Math.round(Math.random()*(115-1)+1) + ",heroID=" + herochosen[9] + ";";
+        Statement stm11 = conn.createStatement();
+        System.out.println("sql="+sql11);
+        int rsn11 = stm11.executeUpdate(sql11);
+        
+        int result = rs2 + rsn2 + rsn3 + rsn4 + rsn5 + rsn6 + rsn7 + rsn8 + rsn9 + rsn10 + rsn11;
+        
+        return result;      
+        
+    }
+    
+    
 }
 
 
