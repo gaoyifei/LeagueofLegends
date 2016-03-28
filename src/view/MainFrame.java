@@ -16,6 +16,8 @@ import java.util.logging.Logger;
 public class MainFrame extends javax.swing.JFrame {
     GamePanel gamePanel = new GamePanel();
     PlayerPanel playerPanel = new PlayerPanel();
+    MenuPanel menuPanel = new MenuPanel();
+    MapPanel mapPanel = new MapPanel();
     /**
      * Creates new form MainFrame
      */
@@ -39,6 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("League of Legend");
+        setPreferredSize(new java.awt.Dimension(1400, 800));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(1080, 720));
 
@@ -115,13 +118,27 @@ public class MainFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void init() throws SQLException {
-     
+        menuPanel.mainFrame = this;
+        mapPanel.mainFrame = this;
         gamePanel.mainFrame = this;
-        this.setContentPane(gamePanel);
+        playerPanel.mainFrame = this;
+        this.setContentPane(menuPanel);
     }
     
-    public void changePanel(){
-        this.setContentPane(playerPanel);
+    public void changePanel(int parameter){
+        if(parameter == 0){
+            this.setContentPane(menuPanel);
+        }
+        else if(parameter == 1){
+            this.setContentPane(playerPanel);
+        }
+        else if(parameter == 2){
+            this.setContentPane(gamePanel);
+            
+        }
+        else{
+            this.setContentPane(mapPanel);
+        }
         this.repaint();
         this.validate();
     

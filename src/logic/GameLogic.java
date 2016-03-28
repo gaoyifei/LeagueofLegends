@@ -129,4 +129,8 @@ public class GameLogic {
         }
         return rankList;
     }
+    
+    public void simulate() throws SQLException{
+        db.simulateHistory();
+    }
 }
