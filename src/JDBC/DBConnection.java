@@ -35,7 +35,7 @@ public class DBConnection {
     String JDBC_DRIVER= "com.mysql.jdbc.Driver";  
     String DB_URL = "jdbc:mysql://localhost:3306/project1";
     String USER = "root";
-    String PASS = "";
+    String PASS = "8213208";
     Connection conn = null;
     
     private int maxPlayerID = 0;
