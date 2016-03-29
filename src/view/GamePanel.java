@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import logic.GameLogic;
 import model.Equipment;
@@ -240,8 +241,6 @@ public class GamePanel extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addComponent(switchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5)
-                .addGap(454, 454, 454)
                 .addComponent(simulateButton)
                 .addGap(66, 66, 66))
             .addGroup(layout.createSequentialGroup()
@@ -254,6 +253,9 @@ public class GamePanel extends javax.swing.JPanel {
                         .addComponent(heroPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -270,16 +272,12 @@ public class GamePanel extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(simulateButton)
-                            .addComponent(switchButton)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel5)))
-                .addGap(32, 32, 32)
+                    .addComponent(simulateButton)
+                    .addComponent(switchButton)
+                    .addComponent(jLabel5))
+                .addGap(61, 61, 61)
                 .addComponent(jLabel2)
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -294,7 +292,7 @@ public class GamePanel extends javax.swing.JPanel {
                             .addComponent(equButton))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(equipPane, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -308,7 +306,7 @@ public class GamePanel extends javax.swing.JPanel {
 
     private void equButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_equButtonMouseClicked
         if(eFlag == 0){
-            equButton.setText("List All Equipment");
+            equButton.setText("Order By Times");
             eFlag = 1;
         }
         else{
@@ -334,7 +332,7 @@ public class GamePanel extends javax.swing.JPanel {
     private void heroButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_heroButtonMouseClicked
         // TODO add your handling code here:
         if(hFlag == 0){
-            heroButton.setText("List All Hero");
+            heroButton.setText("Order By Times");
             hFlag = 1;
         }
         else{
@@ -362,6 +360,11 @@ public class GamePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_switchButtonMouseClicked
 
     private void simulateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simulateButtonMouseClicked
+        Object[] options = { "OK", "CANCEL" };
+        JOptionPane.showOptionDialog(null, "Click OK to continue", "Warning",
+        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+        null, options, options[0]);
+        
         try {
             // TODO add your handling code here:
             gameLogic.simulate();

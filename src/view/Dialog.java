@@ -16,6 +16,7 @@ import logic.PlayerLogic;
  */
 public class Dialog extends javax.swing.JDialog {
     public PlayerLogic playerLogic = PlayerLogic.getInstance();
+    PlayerPanel playerPanel;
     /**
      * Creates new form Dialog
      */
@@ -143,6 +144,9 @@ public class Dialog extends javax.swing.JDialog {
         } catch (SQLException ex) {
             Logger.getLogger(Dialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        playerPanel.refresh();
+        this.dispose();
     }//GEN-LAST:event_addButtonMouseClicked
     
     /**
