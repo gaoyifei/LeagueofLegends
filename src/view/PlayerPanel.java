@@ -5,6 +5,7 @@
  */
 package view;
 
+import temp.NewJFrame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractListModel;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -30,6 +32,7 @@ import model.Player;
 public class PlayerPanel extends javax.swing.JPanel {
     public MainFrame mainFrame;
     public PlayerLogic playerLogic = PlayerLogic.getInstance();
+    private ArrayList<Player> players;
     private Dialog dialog;
     private ListSelectionModel listSelectionModel;
     private int playerID;
@@ -76,6 +79,11 @@ public class PlayerPanel extends javax.swing.JPanel {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
+        });
+        playerList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                playerListValueChanged(evt);
+            }
         });
         jScrollPane1.setViewportView(playerList);
 
@@ -166,7 +174,7 @@ public class PlayerPanel extends javax.swing.JPanel {
         playerTable.setRowMargin(2);
         jScrollPane2.setViewportView(playerTable);
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(250, 252, 194));
         jLabel1.setText("Player Information");
 
@@ -179,7 +187,7 @@ public class PlayerPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(switchButton)
-                        .addGap(332, 332, 332)
+                        .addGap(254, 254, 254)
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -190,9 +198,9 @@ public class PlayerPanel extends javax.swing.JPanel {
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
+                                .addGap(77, 77, 77)
                                 .addComponent(jLabel13)
-                                .addGap(301, 301, 301)
+                                .addGap(214, 214, 214)
                                 .addComponent(jLabel12))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(409, 409, 409)
@@ -215,14 +223,13 @@ public class PlayerPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(34, 34, 34)
                         .addComponent(jLabel1)
-                        .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel12)
-                                .addComponent(jLabel16)))
+                        .addGap(61, 61, 61)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel13))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -243,7 +250,7 @@ public class PlayerPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(switchButton)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -255,6 +262,7 @@ public class PlayerPanel extends javax.swing.JPanel {
     private void lookUpButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lookUpButtonMouseClicked
        
             // TODO add your handling code here:
+            
             playerID = Integer.parseInt((String) playerList.getSelectedValue());
         try {
             this.loadDetailInfo(playerID);
@@ -266,19 +274,39 @@ public class PlayerPanel extends javax.swing.JPanel {
 
     private void addPlayerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addPlayerButtonMouseClicked
         // TODO add your handling code here:
+        playerList.clearSelection();
         dialog = new Dialog();
         dialog.pack();
         dialog.setVisible(true);
+        dialog.playerPanel = this;
     }//GEN-LAST:event_addPlayerButtonMouseClicked
 
     private void deletePlayerButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deletePlayerButtonMouseClicked
+        playerID = Integer.parseInt((String) playerList.getSelectedValue());
+//        playerList.clearSelection();
         try {
             // TODO add your handling code here:
             playerLogic.deletePlayer(playerID);
         } catch (SQLException ex) {
             Logger.getLogger(PlayerPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        this.refresh();
     }//GEN-LAST:event_deletePlayerButtonMouseClicked
+
+    private void playerListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_playerListValueChanged
+        // TODO add your handling code here:
+        if(playerList.getSelectedValue() == null){
+            playerList.setSelectedIndex(0);
+        }
+        
+        playerID = Integer.parseInt((String) playerList.getSelectedValue());
+                try {
+                       loadPlayerInfo(playerID); 
+                    } catch (SQLException ex) {
+                       Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                
+    }//GEN-LAST:event_playerListValueChanged
    
     
     @Override
@@ -318,31 +346,37 @@ public class PlayerPanel extends javax.swing.JPanel {
      
      private void init() {
         
-        
+        players = playerLogic.allPlayers();
         listSelectionModel = playerList.getSelectionModel();
 
-        playerList.setModel(new javax.swing.AbstractListModel<String>() {
-             ArrayList<Player> playerList = playerLogic.allPlayers();
-            public int getSize() { return playerList.size(); }
-            public String getElementAt(int i) { return Integer.toString(playerList.get(i).playerID);}
+        playerList.setModel(new AbstractListModel<String>() {
+            
+            @Override
+            public int getSize(){
+              return players.size();
+            }
+            @Override
+            public String getElementAt(int i){ 
+              return Integer.toString(players.get(i).playerID);
+            }
         });
                 // Listener 
-        ListSelectionListener listSelectionListener = new ListSelectionListener() {    
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if(!e.getValueIsAdjusting()){
-                System.out.print(playerList.getSelectedValue());
-                System.out.print(playerList.getSelectedIndex());
-                playerID = Integer.parseInt((String) playerList.getSelectedValue());
-                try {
-                    loadPlayerInfo(playerID); 
-                    } catch (SQLException ex) {
-                        Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-        };
-        listSelectionModel.addListSelectionListener(listSelectionListener);
+//        ListSelectionListener listSelectionListener = new ListSelectionListener() {    
+//            @Override
+//            public void valueChanged(ListSelectionEvent e) {
+//                if(!e.getValueIsAdjusting()){
+//                System.out.print(playerList.getSelectedValue());
+//                System.out.print(playerList.getSelectedIndex());
+//                playerID = Integer.parseInt((String) playerList.getSelectedValue());
+//                try {
+//                       loadPlayerInfo(playerID); 
+//                    } catch (SQLException ex) {
+//                       Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+//                }
+//            }
+//        };
+//        listSelectionModel.addListSelectionListener(listSelectionListener);
 
     }
      
@@ -375,9 +409,9 @@ public class PlayerPanel extends javax.swing.JPanel {
                         {"Most played Map", result.get(2)},
                         {"Most used item ", result.get(3)},
                         {"Total Game Time", result.get(4)+" mins"},
-                        {"Best Hero(BH)", result.get(5)},
-                        {"BH Winrate", result.get(6)+" %"},
-                        {"BH favorate Equip",result.get(7)},
+                        {"Best Hero", result.get(5)},
+                        {"BestHero Winrate", result.get(6)+ " %"},
+                        {"BestHero favorate Equip",result.get(7)},
                         {"Most Used Position", result.get(8)},
                     },
                     new String [] {
@@ -385,6 +419,20 @@ public class PlayerPanel extends javax.swing.JPanel {
                     }
             ));
         
+    }
+    
+    public void refresh(){
+//        playerList.clearSelection();
+        players = playerLogic.allPlayers();
+        playerList.setModel(new AbstractListModel<String>() {
+             
+            public int getSize()
+            { return players.size(); 
+            }
+            public String getElementAt(int i) 
+            { return Integer.toString(players.get(i).playerID);
+            }
+        });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addPlayerButton;

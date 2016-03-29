@@ -49,8 +49,8 @@ public class GameLogic {
             equipList[index][1] = result.get(index).equipName;
             equipList[index][2] = result.get(index).price;
             equipList[index][3] = result.get(index).types;
-            equipList[index][4] = result.get(index).equipWinrate;
-            equipList[index][5] = result.get(index).equiptimes;
+            equipList[index][4] = result.get(index).equiptimes;
+            equipList[index][5] = result.get(index).equipWinrate;
             index++;
             
         }
@@ -78,8 +78,8 @@ public class GameLogic {
         while(index <= size - 1){  
             heroList[index][0] = result.get(index).heroID;
             heroList[index][1] = result.get(index).heroName;
-            heroList[index][3] = result.get(index).herotimes;
-            heroList[index][2] = result.get(index).heroWinrate;
+            heroList[index][2] = result.get(index).herotimes;
+            heroList[index][3] = result.get(index).heroWinrate;
             index++;
             
         }
