@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -402,6 +403,13 @@ public class PlayerPanel extends javax.swing.JPanel {
      
     private void loadDetailInfo(int playerID) throws SQLException{
         ArrayList result = playerLogic.lookUp(playerID);
+        if(result.get(0) == null){
+             Object[] options = { "OK" };
+        JOptionPane.showOptionDialog(null, "This player does not have game information !", "Warning",
+        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+        null, options, options[0]);
+        }
+        else{
         playerInfoTable.setModel(new javax.swing.table.DefaultTableModel(
                     new Object [][] {
                         {"Wins", result.get(0)},
@@ -418,6 +426,7 @@ public class PlayerPanel extends javax.swing.JPanel {
                         "Question", "Answer"
                     }
             ));
+        }
         
     }
     

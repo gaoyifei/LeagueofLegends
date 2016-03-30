@@ -33,7 +33,6 @@ public class DBConnection {
 
 // Please modify the configuration to suit your environment !
     String JDBC_DRIVER= "com.mysql.jdbc.Driver";  
-
     String DB_URL = "jdbc:mysql://localhost/project1";
     String USER = "root";
     String PASS = "";
@@ -85,7 +84,7 @@ public class DBConnection {
             String query = "SELECT MAX(playerID) AS MAXPLAYER FROM Player;";
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()) maxPlayerID = rs.getInt("MAXPLAYER") + 1;
-            System.out.println("PlayerID max is " + maxPlayerID);
+//            System.out.println("PlayerID max is " + maxPlayerID);
 
 //            query = "SELECT MAX(mapID) AS MAXMAP FROM Map;";
 //            rs = stmt.executeQuery(query);
@@ -188,6 +187,9 @@ public class DBConnection {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
+        if(rs.wasNull()){
+            return null;
+        }
         int mapID = rs.getInt("mapID");
         
         String query2 = "SELECT mapName FROM Map WHERE mapID = " + mapID + ";";
