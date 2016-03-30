@@ -129,11 +129,11 @@ public class PlayerPanel extends javax.swing.JPanel {
         });
 
         jLabel12.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(250, 252, 194));
+        jLabel12.setForeground(new java.awt.Color(102, 102, 255));
         jLabel12.setText("Detail Information");
 
         jLabel13.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(250, 252, 194));
+        jLabel13.setForeground(new java.awt.Color(102, 102, 255));
         jLabel13.setText("Basic Information");
 
         switchButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pic/home.png"))); // NOI18N
@@ -153,7 +153,7 @@ public class PlayerPanel extends javax.swing.JPanel {
         });
 
         jLabel16.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(250, 252, 194));
+        jLabel16.setForeground(new java.awt.Color(102, 102, 255));
         jLabel16.setText("Player List");
 
         playerTable.setBackground(new java.awt.Color(94, 128, 109));
@@ -175,7 +175,7 @@ public class PlayerPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(playerTable);
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(250, 252, 194));
+        jLabel1.setForeground(new java.awt.Color(102, 102, 255));
         jLabel1.setText("Player Information");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

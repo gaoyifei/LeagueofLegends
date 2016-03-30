@@ -98,7 +98,7 @@ public class MenuPanel extends javax.swing.JPanel {
 
         gameLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         gameLabel.setForeground(new java.awt.Color(255, 255, 255));
-        gameLabel.setText("Game Stastics");
+        gameLabel.setText("Game Statistics");
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 204, 0));
@@ -127,7 +127,7 @@ public class MenuPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(196, 196, 196)
                         .addComponent(mapLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(gameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(gameLabel)
