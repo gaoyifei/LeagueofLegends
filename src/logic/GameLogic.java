@@ -50,7 +50,7 @@ public class GameLogic {
             equipList[index][2] = result.get(index).price;
             equipList[index][3] = result.get(index).types;
             equipList[index][4] = result.get(index).equiptimes;
-            equipList[index][5] = result.get(index).equipWinrate;
+            equipList[index][5] = result.get(index).equipWinrate + " %";
             index++;
             
         }
@@ -79,7 +79,7 @@ public class GameLogic {
             heroList[index][0] = result.get(index).heroID;
             heroList[index][1] = result.get(index).heroName;
             heroList[index][2] = result.get(index).herotimes;
-            heroList[index][3] = result.get(index).heroWinrate;
+            heroList[index][3] = result.get(index).heroWinrate + " %";
             index++;
             
         }
@@ -122,7 +122,7 @@ public class GameLogic {
             
             rankList[index][0] = result.get(index).rank;
             rankList[index][1] = result.get(index).pnumber;
-            rankList[index][2] = result.get(index).percentage;
+            rankList[index][2] = result.get(index).percentage + " %";
            
             index++;
             
