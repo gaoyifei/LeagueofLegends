@@ -49,7 +49,7 @@ public class GameLogic {
             equipList[index][1] = result.get(index).equipName;
             equipList[index][2] = result.get(index).price;
             equipList[index][3] = result.get(index).types;
-            equipList[index][4] = result.get(index).equiptimes;
+            equipList[index][4] = result.get(index).equipTimes;
             equipList[index][5] = result.get(index).equipWinrate + " %";
             index++;
             

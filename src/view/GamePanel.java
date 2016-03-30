@@ -360,8 +360,8 @@ public class GamePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_switchButtonMouseClicked
 
     private void simulateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simulateButtonMouseClicked
-        Object[] options = { "OK", "CANCEL" };
-        JOptionPane.showOptionDialog(null, "Click OK to continue", "Warning",
+        Object[] options = { "OK" };
+        JOptionPane.showOptionDialog(null, "Successfully Played a 5v5 Game ! ", "Warning",
         JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
         null, options, options[0]);
         

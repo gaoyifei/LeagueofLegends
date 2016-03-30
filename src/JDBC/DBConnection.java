@@ -252,7 +252,7 @@ public class DBConnection {
     }
     
     public Hero getBestHero(int playerID) throws SQLException {
-        String query = "SELECT temp.heroID, (temp.sumwins/temp.battletimes) as winrate "
+        String query = "SELECT temp.heroID, (100*temp.sumwins/temp.battletimes) as winrate "
                 + "FROM(SELECT MatchHistory.heroID,count(MatchHistory.heroID) as battletimes,sum(MatchHistory.gameResult) as sumwins "
                     + "FROM MatchHistory "
                     + "WHERE MatchHistory.playerID = " + playerID
@@ -358,7 +358,7 @@ public class DBConnection {
             e.equipID = rs.getInt("equipID");
             e.equipName = rs.getString("equipName");
             e.equipWinrate = rs.getFloat("winrate");
-            e.equiptimes = rs.getInt("times");
+            e.equipTimes = rs.getInt("times");
             e.price = rs.getInt("price");
             e.types = rs.getString("types");
             equipList.add(e);
