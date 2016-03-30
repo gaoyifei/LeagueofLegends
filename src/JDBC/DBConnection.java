@@ -187,9 +187,7 @@ public class DBConnection {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
-        if(rs.wasNull()){
-            return null;
-        }
+        
         int mapID = rs.getInt("mapID");
         
         String query2 = "SELECT mapName FROM Map WHERE mapID = " + mapID + ";";

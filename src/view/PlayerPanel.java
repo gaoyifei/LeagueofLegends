@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
@@ -25,6 +26,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import logic.PlayerLogic;
 import model.Player;
+import temp.PlayersPanel;
 
 /**
  *
@@ -268,7 +270,13 @@ public class PlayerPanel extends javax.swing.JPanel {
         try {
             this.loadDetailInfo(playerID);
         } catch (SQLException ex) {
-            Logger.getLogger(PlayerPanel.class.getName()).log(Level.SEVERE, null, ex);
+            String message = "\"No Information For this Player\"\n"
+                         + "One or more attributes searched returned NULL value.\n"
+                          + "In particuar, please make sure this player has enough information \n"
+                            + "in the database for all queries to be done.";
+                JOptionPane.showMessageDialog(new JFrame(), message, "Dialog",
+                JOptionPane.INFORMATION_MESSAGE);
+                   Logger.getLogger(PlayerPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
            
     }//GEN-LAST:event_lookUpButtonMouseClicked
