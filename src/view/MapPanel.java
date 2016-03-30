@@ -72,7 +72,7 @@ public class MapPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Map ID", "Map Name", "Map Size", "Total Time"
+                "Map ID", "Map Name", "Map Size", "Total Played Times"
             }
         ) {
             Class[] types = new Class [] {
@@ -135,7 +135,7 @@ public class MapPanel extends javax.swing.JPanel {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Map & Rank");
 
-        mapPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/map/ARAM.jpg"))); // NOI18N
+        mapPic.setIcon(new javax.swing.ImageIcon(getClass().getResource("/map/normal.jpg"))); // NOI18N
         mapPic.setText("map pic");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -164,7 +164,7 @@ public class MapPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(155, 155, 155)
                                 .addComponent(jLabel4)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(mapPic, javax.swing.GroupLayout.PREFERRED_SIZE, 551, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(261, 261, 261))
         );
@@ -203,7 +203,7 @@ public class MapPanel extends javax.swing.JPanel {
         mapModel = new DefaultTableModel(
         gameLogic.listMap(),
                 new String [] {
-                "Map ID", "Map Name", "Map Size", "Total Time"
+                "Map ID", "Map Name", "Map Size", "Total Played Times"
             }
         );
         
@@ -226,15 +226,15 @@ public class MapPanel extends javax.swing.JPanel {
                 if(!selectionModel.getValueIsAdjusting()){
                     int row = mapTable.getSelectedRow();
                     if(row == 0){
-                        mapPic.setIcon(new ImageIcon(getClass().getResource("/map/ARAM.jpg"))); 
-        
-                    }
-                    else if(row == 1){
                         mapPic.setIcon(new ImageIcon(getClass().getResource("/map/normal.jpg"))); 
         
                     }
-                    else{
+                    else if(row == 1){
                         mapPic.setIcon(new ImageIcon(getClass().getResource("/map/rank.jpg"))); 
+        
+                    }
+                    else{
+                        mapPic.setIcon(new ImageIcon(getClass().getResource("/map/ARAM.jpg"))); 
          
                     }
                 }
