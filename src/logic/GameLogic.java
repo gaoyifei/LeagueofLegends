@@ -131,6 +131,11 @@ public class GameLogic {
     }
     
     public void simulate() throws SQLException{
-        db.simulateHistory();
+        int randommatch;
+        int fi = 1;
+        while(fi < 101){
+            randommatch = db.simulateHistory();
+            fi = fi + 1; 
+        }
     }
 }
