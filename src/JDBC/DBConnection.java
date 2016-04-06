@@ -33,7 +33,7 @@ public class DBConnection {
 
 // Please modify the configuration to suit your environment !
     String JDBC_DRIVER= "com.mysql.jdbc.Driver";  
-    String DB_URL = "jdbc:mysql://localhost/project1";
+    String DB_URL = "jdbc:mysql://localhost/S16_Team3_Project1";
     String USER = "root";
     String PASS = "";
     Connection conn = null;
@@ -370,7 +370,7 @@ public class DBConnection {
     }
     
     public ArrayList<Map> getMapInfor() throws SQLException{
-        String query = "SELECT gamehistory.mapID,mapName,mapSize,sum(gamehistory.playingTime) as totalTime "
+        String query = "SELECT gamehistory.mapID,mapName,mapSize,sum(gamehistory.mapID) as totalTime "
                     + "FROM gamehistory,map "
                     + "where gamehistory.mapID = map.mapID "
                     + "GROUP BY gamehistory.mapID;";
