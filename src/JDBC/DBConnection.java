@@ -33,9 +33,9 @@ public class DBConnection {
 
 // Please modify the configuration to suit your environment !
     String JDBC_DRIVER= "com.mysql.jdbc.Driver";  
-    String DB_URL = "jdbc:mysql://localhost:3306/project1";
+    String DB_URL = "jdbc:mysql://localhost/project1";
     String USER = "root";
-    String PASS = "root";
+    String PASS = "";
     Connection conn = null;
     
     private int maxPlayerID = 0;
@@ -84,7 +84,7 @@ public class DBConnection {
             String query = "SELECT MAX(playerID) AS MAXPLAYER FROM Player;";
             ResultSet rs = stmt.executeQuery(query);
             if(rs.next()) maxPlayerID = rs.getInt("MAXPLAYER") + 1;
-            System.out.println("PlayerID max is " + maxPlayerID);
+//            System.out.println("PlayerID max is " + maxPlayerID);
 
 //            query = "SELECT MAX(mapID) AS MAXMAP FROM Map;";
 //            rs = stmt.executeQuery(query);
@@ -187,6 +187,7 @@ public class DBConnection {
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery(query);
         rs.next();
+        
         int mapID = rs.getInt("mapID");
         
         String query2 = "SELECT mapName FROM Map WHERE mapID = " + mapID + ";";
@@ -251,7 +252,7 @@ public class DBConnection {
     }
     
     public Hero getBestHero(int playerID) throws SQLException {
-        String query = "SELECT temp.heroID, (temp.sumwins/temp.battletimes) as winrate "
+        String query = "SELECT temp.heroID, (100*temp.sumwins/temp.battletimes) as winrate "
                 + "FROM(SELECT MatchHistory.heroID,count(MatchHistory.heroID) as battletimes,sum(MatchHistory.gameResult) as sumwins "
                     + "FROM MatchHistory "
                     + "WHERE MatchHistory.playerID = " + playerID
@@ -357,7 +358,7 @@ public class DBConnection {
             e.equipID = rs.getInt("equipID");
             e.equipName = rs.getString("equipName");
             e.equipWinrate = rs.getFloat("winrate");
-            e.equiptimes = rs.getInt("times");
+            e.equipTimes = rs.getInt("times");
             e.price = rs.getInt("price");
             e.types = rs.getString("types");
             equipList.add(e);
@@ -564,4 +565,3 @@ public class DBConnection {
 }
 
 
- 

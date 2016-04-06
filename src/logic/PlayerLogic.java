@@ -30,6 +30,7 @@ public class PlayerLogic {
         // multiple threads accessing the object
         if(instance == null) instance = new PlayerLogic();
         return instance;
+
     }
     
     public ArrayList<Player> allPlayers(){
@@ -42,21 +43,66 @@ public class PlayerLogic {
         }
         
         return playerList;
+
     }
-    public void addPlayer(Player player){
+    
+   
+    public void addPlayer(int level, String nickName, String rank) throws SQLException{
+        db.insertPlayer( level,  rank,  nickName);
+    }
+
+    
+    public void deletePlayer(int playerID) throws SQLException{
+        db.deletePlayer(playerID);
+    }
+    
+    
+    public ArrayList<String> lookUp(int playerID) throws SQLException{
+        int pID = playerID;
+        Player player = db.getPlayer(pID);
+        int wins = db.getPlayerWins(pID);
+        int loses = db.getPlayerLose(pID);
+        int totalTime = db.getTotalTime(pID);     
+        String commentMap = db.getMostCommonMap(pID);
+        String favorEquip = db.getFavorEquip(pID);
+        Hero bestHero = new Hero();
+        bestHero = db.getBestHero(pID);
+        String favorRole = db.getFavorRoles(pID);
+        String equipBestHero = db.getFavorEquipOfBestHero(playerID);
+
+//        HashMap test = new HashMap();
+//        test.put("pID", pID);
+//        test.put("wins", wins);
+//        test.put("loses", loses);
+//        test.put("totalTime", totalTime);
+//        test.put("commentMap", commentMap);
+//        test.put("favorEquip", favorEquip);
+//        test.put("favorRule", favorEquip);
+//        test.put("bestHero", bestHero);
         
+        ArrayList<String> result = new ArrayList();
+
+        result.add(Integer.toString(wins));
+        result.add(Integer.toString(loses));
+        result.add(commentMap);
+        result.add(favorEquip);
+        result.add(Integer.toString(totalTime));
+        result.add(bestHero.heroName);
+        result.add(Float.toString(bestHero.heroWinrate));
+        result.add(equipBestHero);
+        result.add(favorRole);
+
+        return result;
     }
-    public ArrayList playerInfo(int playerID) throws SQLException{
+    public ArrayList<String> playerInfo(int playerID) throws SQLException{
         int pID = playerID;
         Player player = db.getPlayer(pID);
         int level = player.level;
         String nikeName  = player.nickName;
         String rank = player.rank;
-        int wins = db.getPlayerWins(pID);
-        int loses = db.getPlayerLose(pID);
-        int totalTime = db.getTotalTime(pID);
+       
         
-        String commentMap = db.getMostCommonMap(pID);
+//        String commentMap = db.getMostCommonMap(pID);
 //        String favorEquip = db.getFavorEquip(pID);
 //        String favorRole = db.getFavorRoles(pID);
 //        Hero bestHero = new Hero();
@@ -71,15 +117,14 @@ public class PlayerLogic {
 //        test.put("favorRule", favorEquip);
 //        test.put("bestHero", bestHero);
         
-        ArrayList result = new ArrayList();
+        ArrayList<String>result = new ArrayList();
         result.add(Integer.toString(pID));
         result.add(nikeName);
         result.add(rank);
         result.add(Integer.toString(level));
-        result.add(Integer.toString(wins));
-        result.add(Integer.toString(loses));
-        result.add(Integer.toString(totalTime));
-        result.add(commentMap);
+        
+//        result.add(commentMap);
+
 //        result.add(favorEquip);
 //        result.add(favorRole);
 //        result.add(bestHero.heroName);
