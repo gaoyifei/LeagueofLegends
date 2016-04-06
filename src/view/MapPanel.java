@@ -233,9 +233,13 @@ public class MapPanel extends javax.swing.JPanel {
                         mapPic.setIcon(new ImageIcon(getClass().getResource("/map/rank.jpg"))); 
         
                     }
-                    else{
+                    else if(row == 2){
                         mapPic.setIcon(new ImageIcon(getClass().getResource("/map/ARAM.jpg"))); 
          
+                    }
+                else{
+                        // add a default map 
+                        mapPic.setIcon(new ImageIcon(getClass().getResource("/map/logo.png")));
                     }
                 }
             }

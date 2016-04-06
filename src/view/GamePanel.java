@@ -365,10 +365,7 @@ public class GamePanel extends javax.swing.JPanel {
     }//GEN-LAST:event_switchButtonMouseClicked
 
     private void simulateButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_simulateButtonMouseClicked
-        Object[] options = { "OK" };
-        JOptionPane.showOptionDialog(null, "Successfully Played a 5v5 Game ! ", "Warning",
-        JOptionPane.DEFAULT_OPTION, JOptionPane.YES_OPTION,
-        null, options, options[0]);
+        
         
         try {
             // TODO add your handling code here:
@@ -376,6 +373,11 @@ public class GamePanel extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        Object[] options = { "OK" };
+        JOptionPane.showOptionDialog(null, "Successfully Played a 5v5 Game ! ", "Warning",
+        JOptionPane.DEFAULT_OPTION, JOptionPane.YES_OPTION,
+        null, options, options[0]);
         try {
             this.init();
         } catch (SQLException ex) {
